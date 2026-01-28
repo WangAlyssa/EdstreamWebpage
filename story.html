@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Story - EdStream</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'] },
+                    colors: {
+                        brand: { 
+                            50: '#f0f5ff', 
+                            100: '#e0eaff', 
+                            200: '#c7dafe', 
+                            300: '#a3c2fe', 
+                            400: '#7c9ef8', 
+                            500: '#5879ea', 
+                            600: '#3b5998',
+                            700: '#2d4475', 
+                            800: '#263860', 
+                            900: '#22304e' 
+                        }
+                    },
+                    animation: {
+                        'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        body {
+            opacity: 0;
+            transition: opacity 0.2s ease-in-out; 
+            background-color: #ffffff;
+            overflow-x: hidden;
+        }
+        body.loaded {
+            opacity: 1;
+        }
+        .page-link { cursor: pointer; }
+    </style>
+</head>
+<body class="font-sans text-slate-800 antialiased bg-white flex flex-col min-h-screen">
+
+    <nav class="fixed w-full z-50 bg-white/90 backdrop-blur-xl border-b border-slate-100 shadow-md transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <a href="index.html" class="page-link flex-shrink-0 flex items-center gap-2 cursor-pointer group">
+                    <img src="logo.png" alt="EdStream" class="h-9 w-auto group-hover:scale-105 transition-transform duration-200">
+                </a>
+                
+                <div class="hidden xl:flex items-center space-x-8">
+                    <a href="index.html" class="page-link text-slate-600 hover:text-brand-600 font-medium text-sm transition-colors duration-200">Home</a>
+                    <a href="features.html" class="page-link text-slate-600 hover:text-brand-600 font-medium text-sm transition-colors duration-200">Features</a>
+                    
+                    <div class="relative group h-20 flex items-center cursor-pointer">
+                        <button class="text-brand-600 font-medium text-sm transition-colors duration-200 flex items-center gap-1 pointer-events-none">
+                            About Us
+                            <svg class="w-3 h-3 transition-transform duration-300 group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div class="absolute top-16 left-0 w-56 bg-white rounded-xl shadow-2xl border border-slate-100 p-2 transform origin-top-left transition-all duration-200 ease-out opacity-0 invisible translate-y-1 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0">
+                            <a href="story.html" class="page-link block px-4 py-2.5 text-sm bg-brand-50 text-brand-600 rounded-lg font-medium">Our Story</a>
+                            <a href="careers.html" class="page-link block px-4 py-2.5 text-sm text-slate-600 hover:bg-slate-50 hover:text-brand-600 rounded-lg transition-colors font-medium">Careers</a>
+                            <div class="h-px bg-slate-100 my-1 mx-2"></div>
+                            <a href="trust.html" class="page-link block px-4 py-2.5 text-sm text-slate-600 hover:bg-slate-50 hover:text-brand-600 rounded-lg transition-colors font-medium flex items-center gap-2">
+                                Trust comes first
+                                <svg class="w-3 h-3 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            </a>
+                            <a href="news.html" class="page-link block px-4 py-2.5 text-sm text-slate-600 hover:bg-slate-50 hover:text-brand-600 rounded-lg transition-colors font-medium">News</a>
+                        </div>
+                    </div>
+
+                    <div class="relative group h-20 flex items-center cursor-pointer">
+                        <button class="text-slate-600 group-hover:text-brand-600 font-medium text-sm transition-colors duration-200 flex items-center gap-1 pointer-events-none">
+                            Resources
+                            <svg class="w-3 h-3 opacity-50 transition-transform duration-300 group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div class="absolute top-16 left-0 w-48 bg-white rounded-xl shadow-2xl border border-slate-100 p-2 transform origin-top-left transition-all duration-200 ease-out opacity-0 invisible translate-y-1 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0">
+                            <div class="h-px bg-slate-100 my-1 mx-2"></div>
+                            <a href="blog.html" class="page-link block px-4 py-2.5 text-sm text-slate-600 hover:bg-slate-50 hover:text-brand-600 rounded-lg transition-colors font-medium">Blog</a>
+                            <a href="successstories.html" class="page-link block px-4 py-2.5 text-sm text-slate-600 hover:bg-slate-50 hover:text-brand-600 rounded-lg transition-colors font-medium">Success Stories</a>
+                        </div>
+                    </div>
+
+                    <a href="contact.html" class="page-link text-slate-600 hover:text-brand-600 font-medium text-sm transition-colors duration-200">Contact Us</a>
+                    <a href="https://universityofflorida-6bad23dc.mintlify.app" class="page-link text-slate-600 hover:text-brand-600 font-medium text-sm transition-colors duration-200">Help Center</a>
+                </div>
+
+                <div class="flex items-center space-x-4">
+                    <a href="https://apps.apple.com/us/app/edstream/id6736952355" target="_blank" class="text-slate-400 hover:text-black transition-colors duration-200 p-1">
+                        <svg class="w-6 h-6" viewBox="0 0 384 512" fill="currentColor"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 46.9 104.1 81.6 102.7 29.4-1.2 40.7-22.7 76.1-22.7 34.6 0 46.5 22.7 77.2 23.3 32.7.7 58.1-61.9 83.1-98.3 9.4-13.6 23.2-39.2 23.2-39.2s-60.8-21.6-60.9-51.8zm-91-177.7c17.6-21.2 29.8-51.2 26.3-80.6-25.1 1.3-55.9 16.7-73.4 37-16.7 19.3-30.7 51.6-27.4 79.9 28.3 2.5 54.3-15.3 74.5-36.3z"/></svg>
+                    </a>
+                    
+                    <a href="https://play.google.com/store/apps/details?id=com.edstreamchat.app&pcampaignid=web_share" target="_blank" class="text-slate-400 hover:text-[#3DDC84] transition-colors duration-200 p-1">
+                        <svg class="w-6 h-6" viewBox="0 0 576 512" fill="currentColor"><path d="M420.55,301.93a24,24,0,1,1,24-24,24,24,0,0,1-24,24Zm-265.1,0a24,24,0,1,1,24-24,24,24,0,0,1-24,24Zm273.7-144.48,47.94-83a10,10,0,1,0-17.27-10l-48.54,84.07a301.25,301.25,0,0,0-246.56,0L116.18,64.45a10,10,0,1,0-17.27,10l47.94,83C64.53,202.22,8.24,285.55,0,384H576C567.76,285.56,511.47,202.22,429.15,157.45Z" /></svg>
+                    </a>
+
+                    <a href="https://app.edstream.io" class="page-link bg-brand-600 hover:bg-brand-700 text-white px-6 py-2.5 rounded-full font-semibold text-sm transition-all duration-200 shadow-lg shadow-brand-500/30 hover:-translate-y-0.5">
+                        Login
+                    </a>
+                    <div class="xl:hidden ml-2">
+                        <button id="mobile-menu-btn" class="p-2 text-slate-600 rounded-md hover:bg-slate-100 transition">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="mobile-menu" class="hidden xl:hidden bg-white border-t border-slate-100 absolute w-full left-0 top-20 shadow-xl overflow-hidden transition-all duration-300">
+            <div class="px-4 py-6 space-y-4 flex flex-col">
+                <a href="index.html" class="page-link text-lg font-medium text-slate-800 py-2 border-b border-slate-50">Home</a>
+                <a href="features.html" class="page-link text-lg font-medium text-slate-800 py-2 border-b border-slate-50">Features</a>
+                <a href="story.html" class="page-link text-lg font-medium text-brand-600 py-2 border-b border-slate-50">Our Story</a>
+                <a href="careers.html" class="page-link text-lg font-medium text-slate-800 py-2">Careers</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="pt-20 flex-grow">
+        
+        <section class="relative overflow-hidden pt-20 pb-16 lg:pt-28 lg:pb-24 bg-gradient-to-b from-brand-50/50 to-white">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center animate-fade-in-up">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-100 text-brand-700 text-xs font-bold uppercase tracking-wide mb-6">
+                    Born from Research
+                </div>
+                <h1 class="text-4xl md:text-6xl font-extrabold text-slate-900 tracking-tight mb-6 leading-tight">
+                    Transforming Education <br>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-600 to-brand-400">Communication</span>
+                </h1>
+                <p class="text-lg md:text-xl text-slate-600 max-w-2xl mx-auto leading-relaxed">
+                    Born from the University of Florida, EdStream is revolutionizing how educational institutions manage course communication and build academic communities.
+                </p>
+            </div>
+        </section>
+
+        <section class="py-16 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid lg:grid-cols-2 gap-16 items-center">
+                    <div class="relative">
+                        <div class="absolute -top-4 -left-4 w-24 h-24 bg-brand-100 rounded-full opacity-50 blur-xl"></div>
+                        <div class="relative bg-slate-50 p-8 rounded-3xl border border-slate-100 shadow-lg">
+                            <h3 class="text-2xl font-bold text-slate-900 mb-4">Our Mission</h3>
+                            <p class="text-slate-600 leading-relaxed mb-6">
+                                To streamline educational communication and foster stronger academic communities through innovative technology solutions that integrate seamlessly with existing learning management systems.
+                            </p>
+                            <div class="h-px bg-slate-200 my-6"></div>
+                            <h3 class="text-2xl font-bold text-slate-900 mb-4">The Origin Story</h3>
+                            <p class="text-slate-600 leading-relaxed">
+                                EdStream was born from a real need identified within the <strong>University of Florida's</strong> academic environment. As course enrollments grew and communication became increasingly complex, instructors found themselves overwhelmed with managing student communications across multiple platforms.
+                            </p>
+                            <p class="text-slate-600 leading-relaxed mt-4">
+                                What started as a research project to improve course communication efficiency has evolved into a comprehensive platform that serves thousands of students and dozens of instructors across multiple institutions.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-8">
+                         <div>
+                            <h2 class="text-3xl font-bold text-slate-900 mb-4">From Campus Project to Platform</h2>
+                            <p class="text-lg text-slate-600">
+                                With backing from the University of Florida Research Foundation and partnerships with leading educational institutions, EdStream represents the future of integrated educational communication.
+                            </p>
+                        </div>
+                        
+                        <div class="space-y-6">
+                            <div class="flex gap-4">
+                                <div class="flex-shrink-0 w-12 text-right pt-1 font-bold text-brand-600">2023</div>
+                                <div class="border-l-2 border-brand-100 pl-6 pb-2">
+                                    <h4 class="font-bold text-slate-900">Project Launch</h4>
+                                    <p class="text-sm text-slate-500">Initial research and development at University of Florida.</p>
+                                </div>
+                            </div>
+                            <div class="flex gap-4">
+                                <div class="flex-shrink-0 w-12 text-right pt-1 font-bold text-brand-600">2024</div>
+                                <div class="border-l-2 border-brand-100 pl-6 pb-2">
+                                    <h4 class="font-bold text-slate-900">Pilot Program</h4>
+                                    <p class="text-sm text-slate-500">Successful pilot with 5,000+ students across multiple courses.</p>
+                                </div>
+                            </div>
+                            <div class="flex gap-4">
+                                <div class="flex-shrink-0 w-12 text-right pt-1 font-bold text-brand-600">2024</div>
+                                <div class="border-l-2 border-brand-100 pl-6 pb-2">
+                                    <h4 class="font-bold text-slate-900">Platform Launch</h4>
+                                    <p class="text-sm text-slate-500">Full platform release with Canvas LTI integration.</p>
+                                </div>
+                            </div>
+                            <div class="flex gap-4">
+                                <div class="flex-shrink-0 w-12 text-right pt-1 font-bold text-brand-600">2025</div>
+                                <div class="border-l-2 border-brand-100 pl-6">
+                                    <h4 class="font-bold text-slate-900">Expansion</h4>
+                                    <p class="text-sm text-slate-500">Growing network of partner institutions nationwide.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-20 bg-slate-50 border-y border-slate-200">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl font-bold text-slate-900">Our Values</h2>
+                    <p class="mt-4 text-slate-600">The principles that guide everything we do.</p>
+                </div>
+
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-shadow">
+                        <div class="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center text-blue-600 mb-4">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        </div>
+                        <h3 class="font-bold text-slate-900 mb-2">Student-Centered</h3>
+                        <p class="text-sm text-slate-600 leading-relaxed">Every feature is designed with student success and engagement as the primary focus.</p>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-shadow">
+                        <div class="w-12 h-12 bg-purple-50 rounded-xl flex items-center justify-center text-purple-600 mb-4">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.384-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
+                        </div>
+                        <h3 class="font-bold text-slate-900 mb-2">Educational Excellence</h3>
+                        <p class="text-sm text-slate-600 leading-relaxed">We believe technology should enhance learning, not complicate it.</p>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-shadow">
+                        <div class="w-12 h-12 bg-amber-50 rounded-xl flex items-center justify-center text-amber-600 mb-4">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                        </div>
+                        <h3 class="font-bold text-slate-900 mb-2">Innovation</h3>
+                        <p class="text-sm text-slate-600 leading-relaxed">Pushing the boundaries of what's possible in educational technology.</p>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-shadow">
+                        <div class="w-12 h-12 bg-green-50 rounded-xl flex items-center justify-center text-green-600 mb-4">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                        </div>
+                        <h3 class="font-bold text-slate-900 mb-2">Community</h3>
+                        <p class="text-sm text-slate-600 leading-relaxed">Fostering meaningful connections that extend beyond the classroom.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-20 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-2xl mx-auto mb-12">
+                    <h2 class="text-3xl font-bold text-slate-900 mb-4">Together we can impact how EdTech works</h2>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="group relative overflow-hidden bg-brand-600 rounded-3xl p-10 text-white shadow-xl transition-transform hover:-translate-y-1">
+                        <div class="absolute top-0 right-0 -mr-16 -mt-16 w-64 h-64 bg-brand-500 rounded-full opacity-50 blur-3xl group-hover:scale-110 transition-transform duration-700"></div>
+                        
+                        <div class="relative z-10 h-full flex flex-col justify-between">
+                            <div>
+                                <h3 class="text-2xl font-bold mb-4">Work with us</h3>
+                                <p class="text-brand-100 text-lg leading-relaxed mb-8">
+                                    Want to help tackle the tough issues that have troubled the education system for decades? Join us and have some fun while making a positive impact!
+                                </p>
+                            </div>
+                            <div>
+                                <a href="careers.html" class="inline-flex items-center gap-2 bg-white text-brand-600 px-6 py-3 rounded-xl font-bold hover:bg-brand-50 transition-colors">
+                                    Apply Now
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="group relative overflow-hidden bg-slate-50 border border-slate-200 rounded-3xl p-10 text-slate-800 shadow-lg transition-transform hover:-translate-y-1">
+                        <div class="absolute bottom-0 left-0 -ml-16 -mb-16 w-64 h-64 bg-slate-200 rounded-full opacity-50 blur-3xl group-hover:scale-110 transition-transform duration-700"></div>
+                        
+                        <div class="relative z-10 h-full flex flex-col justify-between">
+                            <div>
+                                <h3 class="text-2xl font-bold mb-4 text-brand-700">Partner with us</h3>
+                                <p class="text-slate-600 text-lg leading-relaxed mb-8">
+                                    Join leading application developers and curriculum publishers that partner with EdStream to simplify their rollouts both in the US and internationally.
+                                </p>
+                            </div>
+                            <div>
+                                <a href="contact.html" class="inline-flex items-center gap-2 bg-brand-700 text-white px-6 py-3 rounded-xl font-bold hover:bg-brand-800 transition-colors shadow-lg shadow-brand-900/10">
+                                    Learn More
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-brand-600 text-white py-16 border-t border-brand-500 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12">
+                <div class="col-span-1 md:col-span-2">
+                    <div class="flex items-center gap-2 mb-6">
+                        <span class="text-white font-bold text-2xl tracking-tight">EdStream</span>
+                    </div>
+                    <p class="text-brand-100 text-sm leading-relaxed max-w-xs mb-6">
+                        Cultivating Campus Communities. The communication layer for the modern university experience.
+                    </p>
+                    <div class="text-xs text-brand-200/80">
+                        &copy; 2025 EdStream. <br>Born from the University of Florida Research Foundation.
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-sm font-bold uppercase tracking-wider text-brand-200 mb-4">Quick Links</h3>
+                    <ul class="space-y-3">
+                        <li><a href="features.html" class="page-link text-white hover:text-white/80 transition-colors">Features</a></li>
+                        <li><a href="story.html" class="page-link text-white hover:text-white/80 transition-colors">About</a></li>
+                        <li><a href="contact.html" class="page-link text-white hover:text-white/80 transition-colors">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-sm font-bold uppercase tracking-wider text-brand-200 mb-4">Legal & Support</h3>
+                    <ul class="space-y-3">
+                        <li><a href="privacy.html" class="page-link text-white hover:text-white/80 transition-colors">Privacy Policy</a></li>
+                        <li><a href="terms.html" class="page-link text-white hover:text-white/80 transition-colors">Terms of Service</a></li>
+                        <li><a href="docs.html" class="page-link text-white hover:text-white/80 transition-colors">Documentation</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => { document.body.classList.add('loaded'); }, 30); 
+            
+            // Mobile Menu Logic
+            const btn = document.getElementById('mobile-menu-btn');
+            const menu = document.getElementById('mobile-menu');
+            if(btn && menu) {
+                btn.addEventListener('click', () => { menu.classList.toggle('hidden'); });
+            }
+
+            // Page Link Logic
+            const links = document.querySelectorAll('.page-link');
+            links.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    const href = link.getAttribute('href');
+                    if (!href || href.startsWith('#') || href.startsWith('http')) return; 
+                    e.preventDefault(); 
+                    document.body.classList.remove('loaded');
+                    setTimeout(() => { window.location.href = href; }, 200);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
