@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Features - EdStream</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'] },
+                    colors: {
+                        brand: { 
+                            50: '#f0f5ff', 100: '#e0eaff', 200: '#c7dafe', 300: '#a3c2fe', 
+                            400: '#7c9ef8', 500: '#5879ea', 600: '#3b5998', 700: '#2d4475', 
+                            800: '#263860', 900: '#22304e' 
+                        }
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        },
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        body { opacity: 0; transition: opacity 0.3s ease-in-out; background-color: #ffffff; overflow-x: hidden; }
+        body.loaded { opacity: 1; }
+    </style>
+</head>
+<body class="font-sans text-slate-800 antialiased bg-white flex flex-col min-h-screen">
+
+    <nav class="fixed w-full z-50 bg-white/90 backdrop-blur-xl border-b border-slate-100 shadow-md transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <a href="index.html" class="page-link flex-shrink-0 flex items-center gap-2 cursor-pointer group">
+                    <img src="logo.png" alt="EdStream" class="h-9 w-auto group-hover:scale-105 transition-transform duration-200">
+                </a>
+                
+                <div class="hidden xl:flex items-center space-x-8">
+                    <a href="features.html" class="page-link text-brand-600 font-medium text-sm transition-colors duration-200">Features</a>
+                    
+                    <div class="relative group h-20 flex items-center cursor-pointer">
+                        <button class="text-slate-600 group-hover:text-brand-600 font-medium text-sm transition-colors duration-200 flex items-center gap-1 pointer-events-none">
+                            About Us
+                            <svg class="w-3 h-3 opacity-50 transition-transform duration-300 group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div class="absolute top-16 left-0 w-56 bg-white rounded-xl shadow-2xl border border-slate-100 p-2 transform origin-top-left transition-all duration-200 ease-out opacity-0 invisible translate-y-1 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0">
+                            <a href="story.html" class="page-link block px-4 py-2.5 text-sm text-slate-600 hover:bg-slate-50 hover:text-brand-600 rounded-lg transition-colors font-medium">Our Story</a>
+                            <a href="careers.html" class="page-link block px-4 py-2.5 text-sm text-slate-600 hover:bg-slate-50 hover:text-brand-600 rounded-lg transition-colors font-medium">Careers</a>
+                            <div class="h-px bg-slate-100 my-1 mx-2"></div>
+                            <a href="trust.html" class="page-link block px-4 py-2.5 text-sm text-slate-600 hover:bg-slate-50 hover:text-brand-600 rounded-lg transition-colors font-medium flex items-center gap-2">
+                                Trust comes first
+                                <svg class="w-3 h-3 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            </a>
+                            <a href="news.html" class="page-link block px-4 py-2.5 text-sm text-slate-600 hover:bg-slate-50 hover:text-brand-600 rounded-lg transition-colors font-medium">News</a>
+                        </div>
+                    </div>
+
+                    <div class="relative group h-20 flex items-center cursor-pointer">
+                        <button class="text-slate-600 group-hover:text-brand-600 font-medium text-sm transition-colors duration-200 flex items-center gap-1 pointer-events-none">
+                            Resources
+                            <svg class="w-3 h-3 opacity-50 transition-transform duration-300 group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div class="absolute top-16 left-0 w-48 bg-white rounded-xl shadow-2xl border border-slate-100 p-2 transform origin-top-left transition-all duration-200 ease-out opacity-0 invisible translate-y-1 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0">
+                            <div class="h-px bg-slate-100 my-1 mx-2"></div>
+                            <a href="blog.html" class="page-link block px-4 py-2.5 text-sm text-slate-600 hover:bg-slate-50 hover:text-brand-600 rounded-lg transition-colors font-medium">Blog</a>
+                            <a href="successstories.html" class="page-link block px-4 py-2.5 text-sm text-slate-600 hover:bg-slate-50 hover:text-brand-600 rounded-lg transition-colors font-medium">Success Stories</a>
+                        </div>
+                    </div>
+
+                    <a href="contact.html" class="page-link text-slate-600 hover:text-brand-600 font-medium text-sm transition-colors duration-200">Contact Us</a>
+
+                    <a href="https://universityofflorida-6bad23dc.mintlify.app" class="page-link text-slate-600 hover:text-brand-600 font-medium text-sm transition-colors duration-200 flex items-center gap-1">
+                        Help Center <svg class="w-3 h-3 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                    </a>
+                </div>
+
+                <div class="flex items-center space-x-4">
+                    <a href="https://apps.apple.com/us/app/edstream/id6736952355" target="_blank" class="text-slate-400 hover:text-black transition-colors duration-200 p-1">
+                        <svg class="w-6 h-6" viewBox="0 0 384 512" fill="currentColor"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 46.9 104.1 81.6 102.7 29.4-1.2 40.7-22.7 76.1-22.7 34.6 0 46.5 22.7 77.2 23.3 32.7.7 58.1-61.9 83.1-98.3 9.4-13.6 23.2-39.2 23.2-39.2s-60.8-21.6-60.9-51.8zm-91-177.7c17.6-21.2 29.8-51.2 26.3-80.6-25.1 1.3-55.9 16.7-73.4 37-16.7 19.3-30.7 51.6-27.4 79.9 28.3 2.5 54.3-15.3 74.5-36.3z"/></svg>
+                    </a>
+                    <a href="https://play.google.com/store/apps/details?id=com.edstreamchat.app&pcampaignid=web_share" target="_blank" class="text-slate-400 hover:text-[#3DDC84] transition-colors duration-200 p-1">
+                        <svg class="w-6 h-6" viewBox="0 0 576 512" fill="currentColor"><path d="M420.55,301.93a24,24,0,1,1,24-24,24,24,0,0,1-24,24Zm-265.1,0a24,24,0,1,1,24-24,24,24,0,0,1-24,24Zm273.7-144.48,47.94-83a10,10,0,1,0-17.27-10l-48.54,84.07a301.25,301.25,0,0,0-246.56,0L116.18,64.45a10,10,0,1,0-17.27,10l47.94,83C64.53,202.22,8.24,285.55,0,384H576C567.76,285.56,511.47,202.22,429.15,157.45Z" /></svg>
+                    </a>
+                    <a href="https://app.edstream.io" class="page-link bg-brand-600 hover:bg-brand-700 text-white px-6 py-2.5 rounded-full font-semibold text-sm transition-all duration-200 shadow-lg shadow-brand-500/30 hover:-translate-y-0.5 hover:shadow-brand-500/40">
+                        Login
+                    </a>
+                    <div class="xl:hidden ml-2">
+                        <button id="mobile-menu-btn" class="p-2 text-slate-600 rounded-md hover:bg-slate-100 transition">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="mobile-menu" class="hidden xl:hidden bg-white border-t border-slate-100 absolute w-full left-0 top-20 shadow-xl overflow-hidden transition-all duration-300">
+            <div class="px-4 py-6 space-y-4 flex flex-col">
+                <a href="features.html" class="page-link text-lg font-medium text-slate-800 py-2 border-b border-slate-50">Features</a>
+                <div class="py-2 border-b border-slate-50">
+                    <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">About</span>
+                    <a href="story.html" class="page-link block text-lg font-medium text-slate-800 mt-2">Our Story</a>
+                    <a href="careers.html" class="page-link block text-lg font-medium text-slate-800 mt-2">Careers</a>
+                </div>
+                <a href="https://universityofflorida-6bad23dc.mintlify.app" class="page-link text-lg font-medium text-slate-800 py-2">Help Center</a>
+                <div class="pt-4 flex flex-col gap-3">
+                    <a href="https://app.edstream.io/courses/" class="page-link text-center bg-brand-600 text-white py-3 rounded-xl font-bold">Login</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="pt-20 flex-grow">
+        
+        <section class="relative overflow-hidden pt-24 pb-20 lg:pt-32 lg:pb-32">
+            <div class="absolute top-0 right-0 -mr-20 -mt-20 w-[600px] h-[600px] bg-brand-100/40 rounded-full blur-3xl opacity-60 pointer-events-none"></div>
+            <div class="absolute bottom-0 left-0 -ml-20 -mb-20 w-[400px] h-[400px] bg-indigo-100/40 rounded-full blur-3xl opacity-60 pointer-events-none"></div>
+
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                <div class="grid lg:grid-cols-2 gap-12 items-center">
+                    <div class="space-y-8 animate-fade-in-up">
+                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-50 border border-brand-100 text-brand-700 text-xs font-semibold uppercase tracking-wide">
+                            <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
+                            Native LTI 1.3 Integration
+                        </div>
+                        <h1 class="text-4xl lg:text-5xl font-extrabold text-slate-900 leading-[1.15]">
+                            The Communication Layer <br>
+                            <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-600 to-brand-400">Canvas Is Missing.</span>
+                        </h1>
+                        <p class="text-lg text-slate-600 leading-relaxed max-w-lg">
+                            Reclaim <strong class="text-brand-700">10+ hours per week</strong>. EdStream unifies messages, automates admin tasks, and connects students—without ever leaving your LMS.
+                        </p>
+                        <div class="flex flex-col sm:flex-row gap-4">
+                            <button class="bg-brand-600 text-white px-8 py-4 rounded-xl font-bold shadow-xl shadow-brand-500/20 hover:shadow-brand-500/40 hover:-translate-y-1 transition-all duration-300">
+                                Start Your Pilot
+                            </button>
+                            <button class="group flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-white border border-slate-200 text-slate-700 font-semibold hover:border-brand-300 hover:text-brand-600 transition-all duration-300">
+                                View Interactive Demo
+                            </button>
+                        </div>
+                    </div>
+                    <div class="relative hidden lg:block max-w-[90%] mx-auto">
+                        <div class="relative w-full rounded-2xl shadow-2xl border-4 border-slate-100 overflow-hidden animate-float">
+                            <img src="features.png" alt="EdStream Interface inside Canvas" class="w-full h-auto object-cover">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-8 bg-slate-50 border-y border-slate-200">
+            <div class="max-w-7xl mx-auto px-4 text-center">
+                <p class="text-sm font-bold text-slate-400 uppercase tracking-widest mb-6">Seamlessly Integrated With</p>
+                <div class="flex flex-wrap justify-center items-center gap-8 md:gap-16 opacity-60 grayscale hover:grayscale-0 transition-all duration-500">
+                    <span class="text-2xl font-bold text-slate-600 font-serif">Canvas</span>
+                    <span class="text-2xl font-bold text-slate-600 font-sans">Blackboard</span>
+                    <span class="text-2xl font-bold text-slate-600 font-mono">Moodle</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-20 bg-slate-50" id="features">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900 mb-6">Stop Teaching from Your Inbox.</h2>
+                    <p class="text-xl text-slate-600 leading-relaxed max-w-2xl mx-auto">
+                        Fragmented emails and dead discussion boards are costing you time. 
+                        EdStream transforms the experience for the entire classroom.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-6">
+                    
+                    <div class="lg:col-span-6 bg-white rounded-2xl p-8 border border-slate-200 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 h-full flex flex-col">
+                        <div class="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center text-blue-600 mb-6">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-3">Unified Inbox & Channels</h3>
+                        <p class="text-slate-600 leading-relaxed text-sm flex-grow">
+                            Centralize all communications. Handle emails, Canvas messages, and <strong>grade disputes</strong> in one place. 
+                            Set clear boundaries with dedicated private and public channels.
+                        </p>
+                    </div>
+
+                    <div class="lg:col-span-6 bg-white rounded-2xl p-8 border border-slate-200 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 h-full flex flex-col">
+                        <div class="w-12 h-12 bg-indigo-50 rounded-xl flex items-center justify-center text-indigo-600 mb-6">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.384-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-3">Smart Triage</h3>
+                        <p class="text-slate-600 leading-relaxed text-sm flex-grow">
+                            AI automatically routes tech issues to TAs and complex questions directly to you.
+                            Reduce notification noise by 40% instantly.
+                        </p>
+                    </div>
+
+                    <div class="lg:col-span-4 bg-white rounded-2xl p-8 border border-slate-200 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 h-full flex flex-col">
+                        <div class="w-12 h-12 bg-purple-50 rounded-xl flex items-center justify-center text-purple-600 mb-6">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-3">1-Click Extensions</h3>
+                        <p class="text-slate-600 leading-relaxed text-sm flex-grow">Automate the busywork. Approve requests and log compliance data with a single click.</p>
+                    </div>
+
+                    <div class="lg:col-span-4 bg-white rounded-2xl p-8 border border-slate-200 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 h-full flex flex-col">
+                        <div class="w-12 h-12 bg-green-50 rounded-xl flex items-center justify-center text-green-600 mb-6">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-3">Find Your Study Squad</h3>
+                        <p class="text-slate-600 leading-relaxed text-sm flex-grow">Connect with peers based on study habits and time zones. Form groups instantly.</p>
+                    </div>
+
+                    <div class="lg:col-span-4 bg-white rounded-2xl p-8 border border-slate-200 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 h-full flex flex-col">
+                        <div class="w-12 h-12 bg-pink-50 rounded-xl flex items-center justify-center text-pink-600 mb-6">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-3">Mobile-First Chat</h3>
+                        <p class="text-slate-600 leading-relaxed text-sm flex-grow">A modern interface that actually feels like 2026. Send messages on the go.</p>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <section class="py-20 bg-slate-900 text-white">
+            <div class="max-w-5xl mx-auto px-4">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold mb-2">The EdStream Difference</h2>
+                    <p class="text-slate-400">Why institutions are switching from the standard LMS inbox.</p>
+                </div>
+
+                <div class="overflow-hidden bg-slate-800 rounded-2xl shadow-2xl border border-slate-700 comparison-table">
+                    <div class="grid grid-cols-3 bg-slate-950/50 border-b border-slate-700 text-sm font-bold text-slate-400 uppercase tracking-wider">
+                        <div class="p-6">Metric</div>
+                        <div class="p-6 text-center border-r border-slate-700 md:border-none">The Old Way</div>
+                        <div class="p-6 text-center text-brand-400 bg-brand-900/10 border-l border-slate-700">EdStream</div>
+                    </div>
+
+                    <div class="divide-y divide-slate-700">
+                        <div class="grid grid-cols-3 hover:bg-slate-700/30 transition">
+                            <div class="p-6 font-medium text-slate-300">Channels</div>
+                            <div class="p-6 text-center text-slate-400 text-sm border-r border-slate-700 md:border-none">
+                                Notification Overload <br><span class="text-xs opacity-50">(Email + Slack)</span>
+                            </div>
+                            <div class="p-6 text-center text-white font-bold bg-brand-900/5 border-l border-slate-700">
+                                Unified Hub
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-3 hover:bg-slate-700/30 transition">
+                            <div class="p-6 font-medium text-slate-300">Admin Workload</div>
+                            <div class="p-6 text-center text-slate-400 text-sm border-r border-slate-700 md:border-none">
+                                Admin Burnout
+                            </div>
+                            <div class="p-6 text-center text-white font-bold bg-brand-900/5 border-l border-slate-700">
+                                &lt; 2 Hours/Week
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-3 hover:bg-slate-700/30 transition">
+                            <div class="p-6 font-medium text-slate-300">Compliance</div>
+                            <div class="p-6 text-center text-slate-400 text-sm border-r border-slate-700 md:border-none">
+                                High Liability Risk
+                            </div>
+                            <div class="p-6 text-center text-white font-bold bg-brand-900/5 border-l border-slate-700">
+                                100% Secure
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-20 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl font-bold text-slate-900 mb-4">Live in Less Than an Hour</h2>
+                    <p class="text-slate-600 max-w-xl mx-auto">No complex migrations. Just a seamless LTI handshake.</p>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    
+                    <div class="flex flex-col items-center text-center p-8 bg-slate-50 rounded-2xl border border-slate-100 hover:border-brand-200 transition-colors h-full">
+                        <div class="w-16 h-16 rounded-full bg-brand-50 text-brand-600 flex items-center justify-center text-2xl font-bold mb-6 border-4 border-white shadow-lg">1</div>
+                        <h4 class="text-xl font-bold text-slate-900 mb-2">Connect</h4>
+                        <p class="text-slate-600 text-sm leading-relaxed max-w-xs">IT Admins enter the LTI 1.3 key via our secure portal. Syncs rosters instantly.</p>
+                    </div>
+
+                    <div class="flex flex-col items-center text-center p-8 bg-slate-50 rounded-2xl border border-slate-100 hover:border-brand-200 transition-colors h-full">
+                        <div class="w-16 h-16 rounded-full bg-indigo-50 text-indigo-600 flex items-center justify-center text-2xl font-bold mb-6 border-4 border-white shadow-lg">2</div>
+                        <h4 class="text-xl font-bold text-slate-900 mb-2">Customize</h4>
+                        <p class="text-slate-600 text-sm leading-relaxed max-w-xs">Instructors enable specific modules (Extensions, Chat, Groups) matching their syllabus.</p>
+                    </div>
+
+                    <div class="flex flex-col items-center text-center p-8 bg-slate-50 rounded-2xl border border-slate-100 hover:border-brand-200 transition-colors h-full">
+                        <div class="w-16 h-16 rounded-full bg-green-50 text-green-600 flex items-center justify-center text-2xl font-bold mb-6 border-4 border-white shadow-lg">
+                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                        </div>
+                        <h4 class="text-xl font-bold text-slate-900 mb-2">Launch</h4>
+                        <p class="text-slate-600 text-sm leading-relaxed max-w-xs">Students access EdStream directly from the Canvas sidebar. No new logins required.</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-16 pt-16 border-t border-slate-100">
+                     <div class="p-6 bg-slate-50 rounded-2xl border border-slate-100 hover:border-brand-300 transition text-center md:text-left">
+                        <div class="text-brand-600 font-bold mb-1 flex items-center justify-center md:justify-start gap-2">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg> 
+                            Enterprise Security
+                        </div>
+                        <p class="text-xs text-slate-500">End-to-end encryption, RBAC, and full FERPA/GDPR compliance.</p>
+                    </div>
+                    
+                    <div class="p-6 bg-slate-50 rounded-2xl border border-slate-100 hover:border-brand-300 transition text-center md:text-left">
+                        <div class="text-brand-600 font-bold mb-1 flex items-center justify-center md:justify-start gap-2">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"/></svg> 
+                            Data Sovereignty
+                        </div>
+                        <p class="text-xs text-slate-500">You own your data. Export comprehensive audit logs anytime.</p>
+                    </div>
+
+                    <div class="p-6 bg-slate-50 rounded-2xl border border-slate-100 hover:border-brand-300 transition text-center md:text-left">
+                        <div class="text-brand-600 font-bold mb-1 flex items-center justify-center md:justify-start gap-2">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg> 
+                            Proven Scalability
+                        </div>
+                        <p class="text-xs text-slate-500">Stress-tested for 10,000+ simultaneous users.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-brand-600 text-white py-16 border-t border-brand-500 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12">
+                <div class="col-span-1 md:col-span-2">
+                    <div class="flex items-center gap-2 mb-6">
+                        <span class="text-white font-bold text-2xl tracking-tight">EdStream</span>
+                    </div>
+                    <p class="text-brand-100 text-sm leading-relaxed max-w-xs mb-6">
+                        Cultivating Campus Communities. The communication layer for the modern university experience.
+                    </p>
+                    <div class="text-xs text-brand-200/80">
+                        &copy; 2025 EdStream. <br>Born from the University of Florida Research Foundation.
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-sm font-bold uppercase tracking-wider text-brand-200 mb-4">Quick Links</h3>
+                    <ul class="space-y-3">
+                        <li><a href="features.html" class="page-link text-white hover:text-white/80 transition-colors">Features</a></li>
+                        <li><a href="story.html" class="page-link text-white hover:text-white/80 transition-colors">About</a></li>
+                        <li><a href="contact.html" class="page-link text-white hover:text-white/80 transition-colors">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-sm font-bold uppercase tracking-wider text-brand-200 mb-4">Legal & Support</h3>
+                    <ul class="space-y-3">
+                        <li><a href="privacy.html" class="page-link text-white hover:text-white/80 transition-colors">Privacy Policy</a></li>
+                        <li><a href="terms.html" class="page-link text-white hover:text-white/80 transition-colors">Terms of Service</a></li>
+                        <li><a href="https://universityofflorida-6bad23dc.mintlify.app" class="page-link text-white hover:text-white/80 transition-colors">Documentation</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => { document.body.classList.add('loaded'); }, 30);
+            const btn = document.getElementById('mobile-menu-btn');
+            const menu = document.getElementById('mobile-menu');
+            if(btn && menu) {
+                btn.addEventListener('click', () => { menu.classList.toggle('hidden'); });
+            }
+            const links = document.querySelectorAll('.page-link');
+            links.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    const href = link.getAttribute('href');
+                    if (!href || href.startsWith('#') || href.startsWith('http')) {
+                        if (href && href.startsWith('#')) {
+                            e.preventDefault();
+                            const target = document.querySelector(href);
+                            if(target) target.scrollIntoView({behavior: 'smooth'});
+                        }
+                        return; 
+                    }
+                    e.preventDefault(); 
+                    document.body.classList.remove('loaded');
+                    setTimeout(() => { window.location.href = href; }, 200);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
