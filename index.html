@@ -1,742 +1,696 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EdStream - Chat for Canvas LMS</title>
+    <title>EdStream - Modern Communication Platform for Education & Teams</title>
     
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,500;0,700;1,500;1,700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
     <script>
         tailwind.config = {
             theme: {
                 extend: {
-                    fontFamily: { sans: ['Inter', 'sans-serif'] },
                     colors: {
+                        // 注入您的品牌色系，补充了底色 bg: '#0A0C10' 和卡片色 card: '#13151c'
                         canvas: { nav: '#2D3B45', link: '#0374B5', text: '#2D3B45', bg: '#F5F5F5', primary: '#0374B5' },
-                        edstream: { sidebar: '#1e1e2d', bg: '#FFFFFF', accent: '#6366f1' },
+                        edstream: { sidebar: '#1e1e2d', bg: '#0A0C10', accent: '#6366f1', card: '#13151c' },
                         brand: { 50: '#f0f9ff', 100: '#e0f2fe', 400: '#38bdf8', 500: '#0ea5e9', 600: '#3b5998', 700: '#0369a1' }
                     },
-                    animation: {
-                        'float': 'float 3s ease-in-out infinite',
-                        'shake': 'shake 2s linear infinite',
-                        'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
-                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-                    },
-                    keyframes: {
-                        float: {
-                            '0%, 100%': { transform: 'translateY(0)' },
-                            '50%': { transform: 'translateY(-5px)' },
-                        },
-                        shake: {
-                            '0%, 100%': { transform: 'rotate(0deg)' },
-                            '25%': { transform: 'rotate(5deg)' },
-                            '75%': { transform: 'rotate(-5deg)' },
-                        },
-                        fadeInUp: {
-                            '0%': { opacity: '0', transform: 'translateY(20px)' },
-                            '100%': { opacity: '1', transform: 'translateY(0)' },
-                        }
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        serif: ['"Playfair Display"', 'serif'],
                     },
                     boxShadow: {
-                        'glow-brand': '0 0 20px -5px rgba(14, 165, 233, 0.5)',
+                        'soft': '0 20px 40px -15px rgba(0,0,0,0.5)', // 暗黑模式下的柔和深阴影
+                        'glow': '0 0 30px -5px rgba(99, 102, 241, 0.4)', // Accent 色发光
                     }
                 }
             }
         }
     </script>
-    
-    <style>
-        .scrollbar-hide::-webkit-scrollbar { display: none; }
-        
-        body {
-            opacity: 0;
-            transition: opacity 0.2s ease-in-out; 
-        }
-        
-        body.loaded {
-            opacity: 1;
-        }
-
-        nav a:active, button:active {
-            opacity: 0.7;
-            transition: opacity 0.1s;
-        }
-
-        /* For CSS Chart */
-        .chart-line {
-            stroke-dasharray: 1000;
-            stroke-dashoffset: 1000;
-            animation: drawChart 2s ease-out forwards 0.5s;
-        }
-        @keyframes drawChart {
-            to { stroke-dashoffset: 0; }
-        }
-    </style>
 </head>
-<body class="font-sans text-slate-800 antialiased bg-gradient-to-br from-brand-50 via-white to-indigo-100 min-h-screen">
+<body class="bg-edstream-bg font-sans text-gray-400 antialiased selection:bg-edstream-accent/30 selection:text-white overflow-x-hidden">
 
-    <nav class="fixed w-full z-50 bg-white/90 backdrop-blur-xl border-b border-slate-100 shadow-sm transition-all duration-300">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-20">
+    <header class="sticky top-0 z-50 bg-edstream-bg/80 backdrop-blur-md border-b border-white/10 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <div class="flex-shrink-0 flex items-center gap-3 cursor-pointer group">
+                    <div class="w-9 h-9 rounded-lg bg-edstream-accent flex items-center justify-center text-white font-bold text-xl shadow-glow group-hover:scale-105 transition-transform">
+                        E
+                    </div>
+                    <span class="font-serif font-bold text-2xl text-white tracking-tight">EdStream</span>
+                </div>
                 
-                <a href="index.html" class="page-link flex-shrink-0 flex items-center gap-2 cursor-pointer group">
-                    <img src="logo.png" alt="EdStream" class="h-9 w-auto group-hover:scale-105 transition-transform duration-200">
-                </a>
-                
-                <div class="hidden xl:flex items-center space-x-8">
-                    <a href="features.html" class="page-link text-slate-600 hover:text-brand-600 font-medium text-sm transition-colors duration-200">Features</a>
-                    
-                    <div class="relative group h-20 flex items-center cursor-pointer">
-                        <button class="text-slate-600 group-hover:text-brand-600 font-medium text-sm transition-colors duration-200 flex items-center gap-1 pointer-events-none">
-                            About Us
-                            <svg class="w-3 h-3 opacity-50 transition-transform duration-300 group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                        </button>
-                        <div class="absolute top-16 left-0 w-56 bg-white rounded-xl shadow-2xl border border-slate-100 p-2 transform origin-top-left transition-all duration-200 ease-out opacity-0 invisible translate-y-1 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0">
-                            <a href="story.html" class="page-link block px-4 py-2.5 text-sm text-slate-600 hover:bg-slate-50 hover:text-brand-600 rounded-lg transition-colors font-medium">Our Story</a>
-                            <a href="careers.html" class="page-link block px-4 py-2.5 text-sm text-slate-600 hover:bg-slate-50 hover:text-brand-600 rounded-lg transition-colors font-medium">Careers</a>
-                            <div class="h-px bg-slate-100 my-1 mx-2"></div>
-                            <a href="trust.html" class="page-link block px-4 py-2.5 text-sm text-slate-600 hover:bg-slate-50 hover:text-brand-600 rounded-lg transition-colors font-medium flex items-center gap-2">
-                                Trust comes first
-                                <svg class="w-3 h-3 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                <nav class="hidden md:flex space-x-8">
+                    <a href="#features" class="text-sm font-medium text-gray-300 hover:text-brand-400 transition">Features</a>
+                    <a href="#solutions" class="text-sm font-medium text-gray-300 hover:text-brand-400 transition">Solutions</a>
+                    <a href="#pricing" class="text-sm font-medium text-gray-300 hover:text-brand-400 transition">Pricing</a>
+                    <a href="#resources" class="text-sm font-medium text-gray-300 hover:text-brand-400 transition">Resources</a>
+                </nav>
+
+                <div class="hidden md:flex items-center space-x-6">
+                    <a href="#" class="text-sm font-medium text-gray-300 hover:text-white transition">Log in</a>
+                    <a href="#" class="px-6 py-2.5 rounded-full bg-edstream-accent text-white text-sm font-medium hover:bg-opacity-90 shadow-glow transition-all hover:-translate-y-0.5">
+                        Try it for free
+                    </a>
+                </div>
+
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-gray-400 hover:text-white focus:outline-none p-2">
+                        <i class="fa-solid fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div id="mobile-menu" class="hidden md:hidden bg-edstream-card border-b border-white/10 px-6 py-4 space-y-4 shadow-xl absolute w-full">
+            <a href="#features" class="block text-base font-medium text-gray-300 hover:text-white">Features</a>
+            <a href="#solutions" class="block text-base font-medium text-gray-300 hover:text-white">Solutions</a>
+            <a href="#pricing" class="block text-base font-medium text-gray-300 hover:text-white">Pricing</a>
+            <hr class="border-white/10">
+            <a href="#" class="block text-base font-medium text-gray-300 hover:text-white">Log in</a>
+            <a href="#" class="block w-full text-center px-5 py-3 rounded-xl bg-edstream-accent text-white font-medium shadow-glow">Try it for free</a>
+        </div>
+    </header>
+
+    <main>
+        <section class="relative pt-20 pb-24 lg:pt-32 lg:pb-32 overflow-hidden">
+            <div class="absolute top-0 right-0 w-[600px] h-[600px] bg-edstream-accent/10 rounded-full blur-[120px] -z-10 mix-blend-screen pointer-events-none"></div>
+
+            <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
+                <div class="grid lg:grid-cols-2 gap-16 items-center">
+                    <div class="max-w-2xl">
+                        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm shadow-sm mb-8">
+                            <div class="flex -space-x-1">
+                                <img class="w-5 h-5 rounded-full ring-2 ring-edstream-bg" src="https://i.pravatar.cc/100?img=1" alt="user">
+                                <img class="w-5 h-5 rounded-full ring-2 ring-edstream-bg" src="https://i.pravatar.cc/100?img=2" alt="user">
+                                <img class="w-5 h-5 rounded-full ring-2 ring-edstream-bg" src="https://i.pravatar.cc/100?img=3" alt="user">
+                            </div>
+                            <span class="text-xs font-medium text-gray-300">Trusted by 100k+ users worldwide</span>
+                        </div>
+                        
+                        <h1 class="text-5xl lg:text-7xl font-serif text-white leading-[1.1] mb-6 tracking-tight">
+                            Elevate your <br>
+                            <span class="italic text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-edstream-accent">campus & team</span><br>
+                            communication.
+                        </h1>
+                        
+                        <p class="text-lg lg:text-xl text-gray-400 leading-relaxed mb-10 max-w-lg font-light">
+                            Streamline discussions, connect peers, and foster a culture of collaborative learning. EdStream is the modern workspace built for the next generation.
+                        </p>
+                        
+                        <div class="flex flex-col sm:flex-row gap-4 mb-12">
+                            <a href="#" class="inline-flex justify-center items-center gap-2 px-8 py-4 rounded-full bg-edstream-accent text-white font-medium hover:bg-opacity-90 shadow-glow transition-all hover:-translate-y-1">
+                                Get Started Free <i class="fa-solid fa-arrow-right text-sm"></i>
                             </a>
-                            <a href="news.html" class="page-link block px-4 py-2.5 text-sm text-slate-600 hover:bg-slate-50 hover:text-brand-600 rounded-lg transition-colors font-medium">News</a>
-                        </div>
-                    </div>
-
-                    <div class="relative group h-20 flex items-center cursor-pointer">
-                        <button class="text-slate-600 group-hover:text-brand-600 font-medium text-sm transition-colors duration-200 flex items-center gap-1 pointer-events-none">
-                            Resources
-                            <svg class="w-3 h-3 opacity-50 transition-transform duration-300 group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                        </button>
-                        <div class="absolute top-16 left-0 w-48 bg-white rounded-xl shadow-2xl border border-slate-100 p-2 transform origin-top-left transition-all duration-200 ease-out opacity-0 invisible translate-y-1 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0">
-                            <div class="h-px bg-slate-100 my-1 mx-2"></div>
-                            <a href="blog.html" class="page-link block px-4 py-2.5 text-sm text-slate-600 hover:bg-slate-50 hover:text-brand-600 rounded-lg transition-colors font-medium">Blog</a>
-                            <a href="successstories.html" class="page-link block px-4 py-2.5 text-sm text-slate-600 hover:bg-slate-50 hover:text-brand-600 rounded-lg transition-colors font-medium">Success Stories</a>
-                        </div>
-                    </div>
-
-                    <a href="contact.html" class="page-link text-slate-600 hover:text-brand-600 font-medium text-sm transition-colors duration-200">Contact Us</a>
-
-                    <a href="https://universityofflorida-6bad23dc.mintlify.app" class="page-link text-slate-600 hover:text-brand-600 font-medium text-sm transition-colors duration-200 flex items-center gap-1">
-                        Help Center <svg class="w-3 h-3 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
-                    </a>
-                </div>
-
-                <div class="flex items-center space-x-4">
-                    <a href="https://apps.apple.com/us/app/edstream/id6736952355" target="_blank" class="text-slate-400 hover:text-black transition-colors duration-200 p-1">
-                        <svg class="w-6 h-6" viewBox="0 0 384 512" fill="currentColor"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 46.9 104.1 81.6 102.7 29.4-1.2 40.7-22.7 76.1-22.7 34.6 0 46.5 22.7 77.2 23.3 32.7.7 58.1-61.9 83.1-98.3 9.4-13.6 23.2-39.2 23.2-39.2s-60.8-21.6-60.9-51.8zm-91-177.7c17.6-21.2 29.8-51.2 26.3-80.6-25.1 1.3-55.9 16.7-73.4 37-16.7 19.3-30.7 51.6-27.4 79.9 28.3 2.5 54.3-15.3 74.5-36.3z"/></svg>
-                    </a>
-                    
-                    <a href="https://play.google.com/store/apps/details?id=com.edstreamchat.app&pcampaignid=web_share" target="_blank" class="text-slate-400 hover:text-[#3DDC84] transition-colors duration-200 p-1">
-                        <svg class="w-6 h-6" viewBox="0 0 576 512" fill="currentColor"><path d="M420.55,301.93a24,24,0,1,1,24-24,24,24,0,0,1-24,24Zm-265.1,0a24,24,0,1,1,24-24,24,24,0,0,1-24,24Zm273.7-144.48,47.94-83a10,10,0,1,0-17.27-10l-48.54,84.07a301.25,301.25,0,0,0-246.56,0L116.18,64.45a10,10,0,1,0-17.27,10l47.94,83C64.53,202.22,8.24,285.55,0,384H576C567.76,285.56,511.47,202.22,429.15,157.45Z" /></svg>
-                    </a>
-
-                    <a href="https://app.edstream.io" class="page-link bg-brand-600 hover:bg-brand-700 text-white px-6 py-2.5 rounded-full font-semibold text-sm transition-all duration-200 shadow-lg shadow-brand-500/30 hover:-translate-y-0.5 hover:shadow-brand-500/40">
-                        Login
-                    </a>
-
-                    <div class="xl:hidden ml-2">
-                        <button id="mobile-menu-btn" class="p-2 text-slate-600 rounded-md hover:bg-slate-100 transition">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <div id="mobile-menu" class="hidden xl:hidden bg-white border-t border-slate-100 absolute w-full left-0 top-20 shadow-xl overflow-hidden transition-all duration-300">
-            <div class="px-4 py-6 space-y-4 flex flex-col">
-                <a href="features.html" class="page-link text-lg font-medium text-slate-800 py-2 border-b border-slate-50">Features</a>
-                <div class="py-2 border-b border-slate-50">
-                    <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">About</span>
-                    <a href="story.html" class="page-link block text-lg font-medium text-slate-800 mt-2">Our Story</a>
-                    <a href="careers.html" class="page-link block text-lg font-medium text-slate-800 mt-2">Careers</a>
-                    <a href="trust.html" class="page-link block text-lg font-medium text-slate-800 mt-2">Trust</a>
-                    <a href="news.html" class="page-link block text-lg font-medium text-slate-800 mt-2">News</a>
-                </div>
-                <div class="py-2 border-b border-slate-50">
-                     <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Resources</span>
-                </div>
-                <a href="https://universityofflorida-6bad23dc.mintlify.app" class="page-link text-lg font-medium text-slate-800 py-2">Help Center</a>
-                <div class="pt-4 flex flex-col gap-3">
-                    <a href="https://app.edstream.io/courses/" class="page-link text-center bg-brand-600 text-white py-3 rounded-xl font-bold">Login</a>
-                </div>
-            </div>
-        </div>
-    </nav>
-
-    <section class="pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden relative z-10">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            
-            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-50/90 border border-brand-100 text-brand-600 text-sm font-medium mb-8 animate-fade-in-up backdrop-blur-sm shadow-sm">
-                <span class="relative flex h-2 w-2">
-                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-400 opacity-75"></span>
-                    <span class="relative inline-flex rounded-full h-2 w-2 bg-brand-500"></span>
-                </span>
-                Now available for Canvas LMS
-            </div>
-
-            <h1 class="text-5xl md:text-7xl font-bold tracking-tight text-slate-900 mb-6 leading-tight">
-                Real-time collaboration,<br>
-                <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-500 to-indigo-600">right inside Canvas.</span>
-            </h1>
-
-            <p class="text-lg md:text-xl text-slate-600 max-w-2xl mx-auto mb-10 leading-relaxed font-medium">
-                Integrate chat, threads, and file sharing directly within your Canvas course pages. Say goodbye to chaotic email threads. <br class="hidden md:block">
-            </p>
-
-            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16">
-                <a href="https://docs.google.com/forms/d/e/1FAIpQLScDmJSQ2MZQ6aByvqiXKWdfOYX2AvzmsZxz2OpJqNR30Lm-fA/viewform" target="_blank" class="w-full sm:w-auto px-8 py-4 bg-slate-900 text-white rounded-xl font-semibold hover:bg-slate-800 transition shadow-xl hover:shadow-2xl transform hover:-translate-y-0.5 duration-200">
-                    Get Started for Free
-                </a>
-                
-                <a href="#" class="w-full sm:w-auto px-8 py-4 bg-white/80 backdrop-blur-md text-slate-700 border border-slate-200 rounded-xl font-semibold hover:bg-white transition flex items-center gap-2 shadow-sm hover:shadow-md cursor-default opacity-80">
-                    <svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                    Watch Demo (Coming Soon)
-                </a>
-            </div>
-
-            <div class="relative mx-auto max-w-6xl rounded-xl border border-slate-300 bg-white shadow-2xl text-left overflow-hidden ring-1 ring-slate-900/5 animate-fade-in-up" style="animation-delay: 0.2s">
-                
-                <div class="h-9 bg-[#f3f4f6] flex items-center gap-2 px-4 border-b border-[#e5e7eb]">
-                    <div class="flex gap-1.5 opacity-60">
-                        <div class="w-3 h-3 rounded-full bg-[#ff5f57] border border-[#e0443e]"></div>
-                        <div class="w-3 h-3 rounded-full bg-[#febc2e] border border-[#d89e24]"></div>
-                        <div class="w-3 h-3 rounded-full bg-[#28c840] border border-[#1aab29]"></div>
-                    </div>
-                    <div class="ml-4 px-3 py-1 bg-white border border-[#e5e7eb] rounded-md text-[11px] text-slate-500 flex-1 truncate font-mono shadow-sm flex items-center cursor-default select-none">
-                        <svg class="w-3 h-3 mr-2 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>
-                        https://canvas.university.edu/courses/101/edstream
-                    </div>
-                </div>
-
-                <div class="flex h-[600px] font-sans text-canvas-text bg-canvas-bg">
-                    
-                    <div class="w-[84px] bg-canvas-nav flex flex-col items-center py-4 gap-4 flex-shrink-0 z-30">
-                        <div class="mb-4 w-full flex justify-center">
-                            <div class="w-12 h-12 flex items-center justify-center text-white">
-                                <svg class="w-8 h-8 opacity-90" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-5.5-2.5l7.5-3.22-1.72-1.72-3.22 7.5c-.13.32-.49.49-.82.36-.32-.13-.49-.49-.36-.82zm5.66-2.58l-3.22 1.38 1.38-3.22 3.22 1.38-1.38.46z"/></svg>
-                            </div>
+                            <a href="#" class="inline-flex justify-center items-center gap-2 px-8 py-4 rounded-full bg-white/5 text-white font-medium border border-white/10 hover:bg-white/10 transition-all">
+                                Book a Demo
+                            </a>
                         </div>
                         
-                        <div class="flex flex-col w-full text-white/70 space-y-1">
-                             <div class="group flex flex-col items-center gap-1 cursor-pointer py-2 hover:bg-white/10 hover:text-white w-full transition">
-                                <div class="w-7 h-7 rounded-full bg-slate-500 overflow-hidden border border-white/20"><img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Prof" alt=""></div>
-                                <span class="text-[10px] font-medium">Account</span>
-                            </div>
-                            <div class="group flex flex-col items-center gap-1 cursor-pointer py-2 hover:bg-white/10 hover:text-white w-full transition">
-                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
-                                <span class="text-[10px] font-medium">Dashboard</span>
-                            </div>
-                            <div class="group flex flex-col items-center gap-1 cursor-pointer py-2 bg-white text-canvas-nav w-full border-l-[3px] border-canvas-link transition">
-                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.747 0-3.332.477-4.5 1.253"></path></svg>
-                                <span class="text-[10px] font-bold">Courses</span>
-                            </div>
-                            <div class="group flex flex-col items-center gap-1 cursor-pointer py-2 hover:bg-white/10 hover:text-white w-full transition">
-                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-                                <span class="text-[10px] font-medium">Calendar</span>
+                        <div class="pt-8 border-t border-white/10">
+                            <p class="text-xs font-medium text-gray-500 uppercase tracking-wider mb-4">Backed by industry leaders</p>
+                            <div class="flex gap-8 opacity-40 grayscale hover:grayscale-0 transition-all">
+                                <i class="fa-brands fa-aws text-4xl"></i>
+                                <i class="fa-brands fa-google text-3xl"></i>
+                                <i class="fa-brands fa-microsoft text-3xl"></i>
                             </div>
                         </div>
                     </div>
 
-                    <div class="w-48 bg-white border-r border-slate-200 hidden sm:flex flex-col px-4 py-6 gap-1 flex-shrink-0 z-20">
-                        <div class="mb-5 text-canvas-link cursor-pointer flex items-center gap-1">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
-                        </div>
-                        <div class="text-[11px] text-slate-500 truncate mb-0.5">2026 Spring Term</div>
-                        <div class="text-[13px] font-bold text-slate-800 truncate mb-6">Web Design 101</div>
-                        
-                        <div class="text-canvas-link hover:underline cursor-pointer text-[13px] py-1.5 px-2 -ml-2 rounded hover:bg-slate-50">Home</div>
-                        <div class="text-canvas-link hover:underline cursor-pointer text-[13px] py-1.5 px-2 -ml-2 rounded hover:bg-slate-50">Syllabus</div>
-                        <div class="text-canvas-link hover:underline cursor-pointer text-[13px] py-1.5 px-2 -ml-2 rounded hover:bg-slate-50">Modules</div>
-                        <div class="text-slate-900 font-bold border-l-[3px] border-slate-900 pl-2 -ml-4 text-[13px] py-1.5 bg-slate-100/50">EdStream Chat</div>
-                        <div class="text-canvas-link hover:underline cursor-pointer text-[13px] py-1.5 px-2 -ml-2 rounded hover:bg-slate-50">Assignments</div>
-                        <div class="text-canvas-link hover:underline cursor-pointer text-[13px] py-1.5 px-2 -ml-2 rounded hover:bg-slate-50">Grades</div>
-                    </div>
-
-                    <div class="flex-1 flex overflow-hidden bg-white relative">
-                        <div class="w-64 bg-edstream-sidebar text-slate-400 flex flex-col flex-shrink-0 border-r border-slate-700/50">
-                            <div class="h-14 flex items-center justify-between px-4 hover:bg-white/5 cursor-pointer border-b border-white/5 transition">
-                                <span class="font-bold text-slate-200 truncate text-sm">Web Design 101</span>
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                            </div>
+                    <div class="relative hidden lg:block perspective-1000">
+                        <div class="bg-edstream-card rounded-2xl shadow-[0_30px_60px_-15px_rgba(0,0,0,0.8)] border border-white/10 overflow-hidden transform -rotate-2 hover:rotate-0 transition-transform duration-700 ease-out flex flex-col h-[500px]">
                             
-                            <div class="flex-1 py-4 space-y-6 overflow-y-auto scrollbar-hide">
-                                <div>
-                                    <div class="px-4 flex items-center justify-between group cursor-pointer mb-1 text-xs font-semibold text-slate-500 uppercase tracking-wider hover:text-slate-300">
-                                        <div class="flex items-center gap-1">Channels</div>
-                                    </div>
-                                    <div class="space-y-0.5">
-                                        <div class="mx-2 px-3 py-1.5 bg-[#6366f1]/10 rounded text-white text-sm flex items-center gap-2 cursor-pointer border-l-2 border-[#6366f1]">
-                                            <span class="text-[#6366f1]">#</span> general
-                                        </div>
-                                        <div class="mx-2 px-3 py-1.5 hover:bg-white/5 rounded text-slate-400 text-sm flex items-center gap-2 cursor-pointer transition">
-                                            <span class="text-slate-500">#</span> announcements
-                                        </div>
-                                        <div class="mx-2 px-3 py-1.5 hover:bg-white/5 rounded text-slate-400 text-sm flex items-center gap-2 cursor-pointer transition">
-                                            <span class="text-slate-500">#</span> homework-help
-                                        </div>
-                                        <div class="mx-2 px-3 py-1.5 hover:bg-white/5 rounded text-slate-400 text-sm flex items-center gap-2 cursor-pointer transition">
-                                            <span class="text-slate-500">#</span> project-teams
-                                        </div>
-                                    </div>
+                            <div class="bg-canvas-nav border-b border-black/20 px-4 py-3 flex items-center gap-2">
+                                <div class="flex gap-1.5">
+                                    <div class="w-3 h-3 rounded-full bg-red-500/80"></div>
+                                    <div class="w-3 h-3 rounded-full bg-yellow-500/80"></div>
+                                    <div class="w-3 h-3 rounded-full bg-green-500/80"></div>
                                 </div>
-                                
-                                <div>
-                                    <div class="px-4 flex items-center justify-between group cursor-pointer mb-1 text-xs font-semibold text-slate-500 uppercase tracking-wider hover:text-slate-300">
-                                        <div class="flex items-center gap-1">Direct Messages</div>
-                                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
-                                    </div>
-                                    <div class="space-y-0.5">
-                                        <div class="mx-2 px-3 py-1.5 hover:bg-white/5 rounded text-slate-400 text-sm flex items-center gap-2 cursor-pointer transition">
-                                            <div class="w-4 h-4 bg-indigo-500 rounded-full flex items-center justify-center text-[8px] text-white">JD</div>
-                                            <span class="truncate">Prof. Reynolds</span>
-                                        </div>
-                                        <div class="mx-2 px-3 py-1.5 hover:bg-white/5 rounded text-slate-400 text-sm flex items-center gap-2 cursor-pointer transition">
-                                            <div class="w-4 h-4 bg-green-500 rounded-full flex items-center justify-center text-[8px] text-white">TA</div>
-                                            <span class="truncate">Sarah (TA)</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="flex-1 flex flex-col bg-white">
-                            <div class="h-14 bg-white border-b border-slate-100 flex items-center px-4 justify-between shadow-sm z-10">
-                                <div class="flex items-center gap-2">
-                                    <span class="font-bold text-slate-800 text-lg"># general</span>
-                                    <span class="text-xs text-slate-400 px-2 py-0.5 bg-slate-100 rounded-full">25 members</span>
-                                </div>
-                                <div class="relative">
-                                    <input type="text" placeholder="Search..." class="bg-slate-100 text-sm rounded-md px-3 py-1.5 w-48 focus:outline-none focus:ring-2 focus:ring-brand-500/20 text-slate-600 pl-8">
-                                    <svg class="w-4 h-4 text-slate-400 absolute left-2.5 top-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-                                </div>
-                            </div>
-
-                            <div class="flex-1 overflow-y-auto p-4 space-y-6 bg-white">
-                                <div class="relative flex items-center py-2">
-                                    <div class="flex-grow border-t border-slate-100"></div>
-                                    <span class="flex-shrink-0 mx-4 text-xs text-slate-400 font-medium">Today</span>
-                                    <div class="flex-grow border-t border-slate-100"></div>
-                                </div>
-
-                                <div class="flex gap-4 group hover:bg-slate-50/50 p-2 -mx-2 rounded-lg transition">
-                                    <div class="w-10 h-10 rounded-md flex-shrink-0 overflow-hidden bg-indigo-100 flex items-center justify-center text-indigo-600 font-bold text-sm">
-                                        PR
-                                    </div>
-                                    <div class="flex-1">
-                                        <div class="flex items-baseline gap-2">
-                                            <span class="font-bold text-slate-900">Prof. Reynolds</span>
-                                            <span class="text-[10px] bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-medium border border-slate-200">INSTRUCTOR</span>
-                                            <span class="text-xs text-slate-400">10:23 AM</span>
-                                        </div>
-                                        <div class="text-slate-700 mt-1 text-[15px] leading-relaxed">
-                                            Welcome to the course! Does everyone have access to the syllabus? It's under the <span class="text-brand-600 font-medium cursor-pointer hover:underline">#announcements</span> channel.
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="flex gap-4 group hover:bg-slate-50/50 p-2 -mx-2 rounded-lg transition">
-                                    <div class="w-10 h-10 rounded-md flex-shrink-0 overflow-hidden border border-slate-200">
-                                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Jane" alt="Student">
-                                    </div>
-                                    <div class="flex-1">
-                                        <div class="flex items-baseline gap-2">
-                                            <span class="font-bold text-slate-900">Jane Smith</span>
-                                            <span class="text-xs text-slate-400">10:25 AM</span>
-                                        </div>
-                                        <div class="text-slate-700 mt-1 text-[15px] leading-relaxed">
-                                            Yes, got it! It's so much easier to chat here than checking emails. 🙌
-                                        </div>
-                                        <div class="flex gap-2 mt-2">
-                                            <div class="bg-slate-100 hover:bg-slate-200 border border-slate-200 rounded-lg px-1.5 py-0.5 text-xs flex items-center gap-1 cursor-pointer transition">
-                                                ❤️ <span class="font-semibold text-slate-600">8</span>
-                                            </div>
-                                            <div class="bg-slate-100 hover:bg-slate-200 border border-slate-200 rounded-lg px-1.5 py-0.5 text-xs flex items-center gap-1 cursor-pointer transition">
-                                                🔥 <span class="font-semibold text-slate-600">3</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <div class="flex gap-4 p-2 -mx-2 opacity-50">
-                                    <div class="w-10 h-10 rounded-md bg-slate-200"></div>
-                                    <div class="space-y-2 w-full pt-1">
-                                        <div class="h-2 w-24 bg-slate-200 rounded"></div>
-                                        <div class="h-2 w-48 bg-slate-200 rounded"></div>
-                                    </div>
-                                </div>
-
-                            </div>
-
-                            <div class="p-4 bg-white border-t border-slate-100">
-                                <div class="border border-slate-300 rounded-lg overflow-hidden shadow-sm focus-within:ring-2 focus-within:ring-brand-500/20 focus-within:border-brand-500 transition">
-                                    <div class="flex items-center gap-1 p-1.5 bg-slate-50 border-b border-slate-200 text-slate-500">
-                                        <button class="p-1 hover:bg-slate-200 rounded"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"></path></svg></button>
-                                        <div class="w-px h-4 bg-slate-300 mx-1"></div>
-                                        <button class="p-1 hover:bg-slate-200 rounded font-bold font-serif w-6 h-6 flex items-center justify-center text-xs">B</button>
-                                        <button class="p-1 hover:bg-slate-200 rounded italic font-serif w-6 h-6 flex items-center justify-center text-xs">I</button>
-                                        <button class="p-1 hover:bg-slate-200 rounded underline font-serif w-6 h-6 flex items-center justify-center text-xs">U</button>
-                                    </div>
-                                    <div class="p-3 bg-white relative">
-                                        <textarea class="w-full h-8 outline-none text-slate-700 resize-none bg-transparent placeholder:text-slate-400 text-sm" placeholder="Message #general..."></textarea>
-                                        <div class="flex justify-end mt-1">
-                                            <button class="bg-brand-600 hover:bg-brand-700 text-white rounded p-1.5 transition">
-                                                <svg class="w-4 h-4 transform rotate-90" fill="currentColor" viewBox="0 0 20 20"><path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z"></path></svg>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="text-[10px] text-center text-slate-400 mt-2">
-                                    <strong>Tip:</strong> You can paste screenshots directly.
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="features" class="py-32 overflow-hidden">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-40">
-            
-            <div class="flex flex-col md:flex-row items-center gap-16 lg:gap-24">
-                <div class="flex-1 space-y-8 relative z-10">
-                    <div class="inline-block px-4 py-1.5 bg-indigo-50/80 backdrop-blur border border-indigo-100 text-indigo-600 rounded-full text-sm font-bold shadow-sm">Seamless Integration</div>
-                    <h3 class="text-4xl font-bold text-slate-900 tracking-tight">Native Canvas Integration. One Unified Inbox.</h3>
-                    <p class="text-lg text-slate-600 leading-relaxed font-medium">
-                        Stop switching tabs. EdStream embeds directly into your Canvas sidebar, centralizing every student message, question, and request into a single, organized dashboard.
-                    </p>
-                </div>
-                <div class="flex-1 relative w-full perspective-1000">
-                     <div class="absolute inset-0 bg-indigo-200/30 blur-3xl rounded-full transform -translate-x-1/2 translate-y-1/2 opacity-50 mix-blend-multiply pointer-events-none"></div>
-
-                     <div class="relative rounded-3xl border-8 border-slate-100 bg-slate-100 shadow-2xl overflow-hidden transform rotate-y-6 hover:rotate-y-0 transition-all duration-700 ease-out">
-                        <div class="h-8 bg-slate-200 flex items-center px-4 gap-2">
-                            <div class="flex gap-1.5"><div class="w-2.5 h-2.5 rounded-full bg-slate-400"></div><div class="w-2.5 h-2.5 rounded-full bg-slate-400"></div><div class="w-2.5 h-2.5 rounded-full bg-slate-400"></div></div>
-                        </div>
-                        <div class="flex h-[450px] bg-canvas-bg relative">
-                            <div class="absolute inset-0 flex blur-[2px] opacity-40 pointer-events-none">
-                                <div class="w-16 bg-canvas-nav flex flex-col items-center py-4 gap-3">
-                                    <div class="w-8 h-8 bg-slate-500/50 rounded-full mb-2"></div>
-                                    <div class="w-6 h-6 bg-slate-500/50 rounded"></div>
-                                    <div class="w-6 h-6 bg-slate-500/50 rounded"></div>
-                                    <div class="w-6 h-6 bg-slate-500/50 rounded"></div>
-                                </div>
-                                <div class="flex-1 p-6 space-y-4 overflow-hidden bg-[#f0f2f5]">
-                                    <div class="h-8 w-1/3 bg-slate-300/50 rounded mb-6"></div>
-                                    <div class="grid grid-cols-3 gap-4 opacity-30">
-                                        <div class="aspect-square bg-white rounded-lg shadow-sm p-2 flex flex-col gap-2 items-center justify-center"><svg class="w-8 h-8 text-red-400" fill="currentColor" viewBox="0 0 20 20"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/></svg><div class="h-2 w-12 bg-slate-200 rounded"></div></div>
-                                        <div class="aspect-square bg-white rounded-lg shadow-sm p-2 flex flex-col gap-2 items-center justify-center"><svg class="w-8 h-8 text-blue-400" fill="currentColor" viewBox="0 0 20 20"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/></svg><div class="h-2 w-12 bg-slate-200 rounded"></div></div>
-                                        <div class="aspect-square bg-white rounded-lg shadow-sm p-2 flex flex-col gap-2 items-center justify-center"><svg class="w-8 h-8 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/></svg><div class="h-2 w-12 bg-slate-200 rounded"></div></div>
-                                        <div class="aspect-square bg-white rounded-lg shadow-sm p-2 flex flex-col gap-2 items-center justify-center"><svg class="w-8 h-8 text-slate-400" fill="currentColor" viewBox="0 0 20 20"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/></svg><div class="h-2 w-12 bg-slate-200 rounded"></div></div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="relative flex-1 flex ml-16 mt-6 mb-6 mr-6 rounded-xl overflow-hidden shadow-[0_0_40px_-10px_rgba(0,0,0,0.2)] z-10 border border-slate-200/50">
-                                 <div class="w-40 bg-white border-r border-slate-200 flex flex-col px-3 py-4 gap-1 flex-shrink-0">
-                                    <div class="text-[10px] font-bold text-slate-800 truncate mb-4">BIO 101: Intro Biology</div>
-                                    <div class="text-canvas-link text-[11px] py-1 px-2 -ml-2 rounded opacity-60">Home</div>
-                                    <div class="text-brand-600 font-bold border-l-[3px] border-brand-600 pl-2 -ml-3 text-[11px] py-1.5 bg-brand-50/50 flex items-center gap-1.5 shadow-sm">
-                                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path></svg>
-                                        EdStream Inbox
-                                    </div>
-                                    <div class="text-canvas-link text-[11px] py-1 px-2 -ml-2 rounded opacity-60">Grades</div>
-                                </div>
-                                <div class="flex-1 flex flex-col bg-white">
-                                    <div class="h-12 bg-white border-b border-slate-100 flex items-center px-4 justify-between">
-                                        <span class="font-bold text-slate-800 text-sm">Unified Inbox (3 New)</span>
-                                        <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-                                    </div>
-                                    <div class="flex-1 overflow-y-auto bg-slate-50/50 p-2 space-y-2">
-                                        <div class="bg-white p-3 rounded-lg border-l-4 border-red-500 shadow-sm cursor-pointer hover:shadow-md transition flex justify-between items-start">
-                                            <div class="flex gap-2">
-                                                <div class="w-8 h-8 rounded-full bg-red-100 flex items-center justify-center text-red-600 font-bold text-xs">JS</div>
-                                                <div>
-                                                    <div class="text-xs font-bold text-slate-900">John Smith <span class="text-red-600 font-medium ml-1">· Urgent</span></div>
-                                                    <div class="text-xs text-slate-600 truncate w-40">Missed quiz due to illness. Need extension.</div>
-                                                </div>
-                                            </div>
-                                            <div class="text-[10px] text-slate-400">10:05 AM</div>
-                                        </div>
-                                        <div class="bg-white p-3 rounded-lg border border-slate-100 shadow-sm cursor-pointer hover:shadow-md transition flex justify-between items-start opacity-80">
-                                            <div class="flex gap-2">
-                                                <div class="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-bold text-xs">AM</div>
-                                                <div>
-                                                    <div class="text-xs font-bold text-slate-900">Alex Miller</div>
-                                                    <div class="text-xs text-slate-600 truncate w-40">Question about Lab 3 data analysis.</div>
-                                                </div>
-                                            </div>
-                                            <div class="text-[10px] text-slate-400">9:45 AM</div>
-                                        </div>
-                                        <div class="bg-white p-3 rounded-lg border border-slate-100 shadow-sm cursor-pointer hover:shadow-md transition flex justify-between items-start opacity-80">
-                                             <div class="flex gap-2">
-                                                <div class="w-8 h-8 rounded-full border border-slate-200 bg-white overflow-hidden"><img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Sarah" alt=""></div>
-                                                <div>
-                                                    <div class="text-xs font-bold text-slate-900">Sarah Chen (TA)</div>
-                                                    <div class="text-xs text-slate-600 truncate w-40">I've handled the grading for Section 2.</div>
-                                                </div>
-                                            </div>
-                                            <div class="text-[10px] text-slate-400">Yesterday</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="flex flex-col md:flex-row-reverse items-center gap-16 lg:gap-24">
-                <div class="flex-1 space-y-8 relative z-10">
-                    <div class="inline-block px-4 py-1.5 bg-green-50/80 backdrop-blur border border-green-100 text-green-600 rounded-full text-sm font-bold shadow-sm">Efficiency at Scale</div>
-                    <h3 class="text-4xl font-bold text-slate-900 tracking-tight">Smart Workflows for Large-Scale Courses.</h3>
-                    <p class="text-lg text-slate-600 leading-relaxed font-medium">
-                        Handle 50+ extension requests in seconds, not hours. Our automated system tags urgent messages, tracks accommodation requirements, and generates compliance docs with one click.
-                    </p>
-                </div>
-                <div class="flex-1 relative w-full perspective-1000 flex justify-center">
-                    <div class="absolute inset-0 bg-green-200/30 blur-3xl rounded-full transform translate-x-1/3 translate-y-1/4 opacity-50 mix-blend-multiply pointer-events-none"></div>
-
-                    <div class="relative w-full max-w-md bg-white rounded-3xl shadow-[0_20px_50px_-10px_rgba(0,0,0,0.15)] border border-slate-100 p-8 overflow-hidden transform hover:scale-[1.02] transition-all duration-500">
-                        <div class="absolute top-0 right-8 transform -translate-y-1/2">
-                            <div class="bg-green-100 border border-green-200 text-green-700 text-[10px] font-bold px-3 py-1 rounded-full shadow-sm flex items-center gap-1">
-                                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                                FERPA Compliant & Synced
-                            </div>
-                        </div>
-
-                        <div class="flex items-start gap-5">
-                            <div class="flex-shrink-0">
-                                <div class="w-14 h-14 rounded-2xl border-2 border-white shadow-md overflow-hidden relative">
-                                    <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Felix" alt="Student Avatar" class="bg-slate-100">
-                                    <div class="absolute bottom-0 right-0 w-4 h-4 bg-red-500 border-2 border-white rounded-full animate-pulse-slow"></div>
+                                <div class="ml-4 flex gap-2">
+                                    <span class="text-[10px] px-2 py-0.5 bg-black/20 border border-white/5 rounded text-gray-300 font-medium tracking-wide">Programming Fundamentals 1</span>
+                                    <span class="text-[10px] px-2 py-0.5 bg-brand-500/20 text-brand-400 rounded font-medium">Canvas Integration</span>
                                 </div>
                             </div>
                             
-                            <div class="flex-1 pt-1">
-                                <h4 class="text-lg font-bold text-slate-900 mb-0.5">Felix Chen</h4>
-                                <p class="text-sm font-medium text-slate-500 mb-3">BIO 101 · Section 3</p>
-                                
-                                <div class="bg-slate-50 rounded-xl p-4 border border-slate-100 mb-4">
-                                    <div class="flex items-center gap-2 mb-2">
-                                        <span class="bg-red-100 text-red-700 text-xs font-bold px-2 py-0.5 rounded">Extension Request</span>
-                                        <span class="text-slate-400 text-xs">•</span>
-                                        <span class="text-slate-600 text-xs font-medium">Exam 2</span>
+                            <div class="flex flex-1 overflow-hidden">
+                                <div class="w-48 bg-edstream-sidebar border-r border-white/5 p-4 text-xs flex flex-col gap-4">
+                                    <div>
+                                        <div class="text-gray-500 font-bold tracking-wider mb-3 flex justify-between items-center">
+                                            CHANNELS <i class="fa-solid fa-plus cursor-pointer hover:text-white"></i>
+                                        </div>
+                                        <div class="space-y-1">
+                                            <div class="bg-white/10 text-white rounded-md px-2 py-1.5 flex items-center gap-2"><i class="fa-solid fa-hashtag text-gray-400"></i> General</div>
+                                            <div class="hover:bg-white/5 text-gray-400 hover:text-white rounded-md px-2 py-1.5 flex items-center gap-2 cursor-pointer transition"><i class="fa-solid fa-hashtag opacity-70"></i> Peer Mentors</div>
+                                            <div class="hover:bg-white/5 text-gray-400 hover:text-white rounded-md px-2 py-1.5 flex items-center gap-2 cursor-pointer transition"><i class="fa-solid fa-hashtag opacity-70"></i> Project Q&A</div>
+                                        </div>
                                     </div>
-                                    <p class="text-slate-700 text-sm leading-relaxed font-medium">
-                                        "Hi Professor, I woke up with a high fever today. Attached is my doctor's note. Can I take the makeup exam next week?"
-                                    </p>
-                                    <div class="flex items-center gap-1 mt-3 text-brand-600 text-xs font-bold cursor-pointer hover:underline">
-                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"></path></svg>
-                                        doctors_note_felix.pdf
+                                    <div>
+                                        <div class="text-gray-500 font-bold tracking-wider mb-3 flex justify-between items-center mt-4">
+                                            DIRECT MESSAGES
+                                        </div>
+                                        <div class="space-y-2">
+                                            <div class="flex items-center gap-2 cursor-pointer text-gray-300 hover:text-white">
+                                                <img src="https://i.pravatar.cc/100?img=11" class="w-5 h-5 rounded-full ring-1 ring-white/10" alt="avatar">
+                                                <span>Prof. Ashish</span>
+                                            </div>
+                                            <div class="flex items-center gap-2 cursor-pointer text-gray-500 hover:text-white">
+                                                <img src="https://i.pravatar.cc/100?img=5" class="w-5 h-5 rounded-full ring-1 ring-white/10" alt="avatar">
+                                                <span>Alyssa Wang</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex-1 bg-[#0A0C10] flex flex-col relative">
+                                    <div class="p-4 border-b border-white/5 flex justify-between items-center">
+                                        <h3 class="font-bold text-white flex items-center gap-2">
+                                            # General <span class="text-xs font-normal text-gray-500 bg-white/5 px-2 py-0.5 rounded">7 members</span>
+                                        </h3>
+                                    </div>
+                                    <div class="flex-1 p-4 space-y-6 overflow-hidden">
+                                        <div class="flex gap-3">
+                                            <img src="https://i.pravatar.cc/100?img=11" class="w-8 h-8 rounded-full shadow-sm" alt="avatar">
+                                            <div>
+                                                <div class="flex items-baseline gap-2 mb-1">
+                                                    <span class="font-bold text-sm text-white">Prof. Ashish</span>
+                                                    <span class="text-[10px] bg-brand-500/20 text-brand-400 px-1.5 py-0.5 rounded font-medium">Professor</span>
+                                                    <span class="text-xs text-gray-500">10:00 AM</span>
+                                                </div>
+                                                <p class="text-sm text-gray-300">Hi <span class="text-edstream-accent bg-edstream-accent/10 px-1 rounded">@everyone</span>, this is our test course where we'll be testing out EdStream. 🚀</p>
+                                                <div class="mt-3 inline-flex items-center gap-1 bg-white/5 border border-white/10 hover:bg-white/10 rounded-full px-2.5 py-1 text-xs cursor-pointer text-gray-400 transition">
+                                                    👍 <span class="text-white">12</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="absolute bottom-[72px] left-0 w-full h-12 bg-gradient-to-t from-[#0A0C10] to-transparent pointer-events-none"></div>
+                                    </div>
+                                    
+                                    <div class="p-4 bg-edstream-card border-t border-white/5">
+                                        <div class="border border-white/10 rounded-xl overflow-hidden focus-within:border-edstream-accent focus-within:ring-1 focus-within:ring-edstream-accent transition-all bg-[#0A0C10]">
+                                            <div class="px-3 py-2 border-b border-white/5 flex gap-3 text-gray-500 text-sm bg-white/5">
+                                                <i class="fa-solid fa-bold hover:text-white cursor-pointer"></i>
+                                                <i class="fa-solid fa-italic hover:text-white cursor-pointer"></i>
+                                                <i class="fa-solid fa-list hover:text-white cursor-pointer"></i>
+                                                <i class="fa-solid fa-code hover:text-white cursor-pointer"></i>
+                                            </div>
+                                            <div class="p-3">
+                                                <input type="text" placeholder="Type your message here..." class="w-full bg-transparent text-sm outline-none text-white placeholder-gray-600">
+                                            </div>
+                                            <div class="px-3 py-2 flex justify-between items-center bg-white/5 border-t border-white/5">
+                                                <div class="flex gap-2 text-gray-500">
+                                                    <i class="fa-solid fa-plus hover:text-white cursor-pointer transition"></i>
+                                                    <i class="fa-regular fa-face-smile hover:text-white cursor-pointer transition"></i>
+                                                </div>
+                                                <button class="w-8 h-8 rounded-lg bg-edstream-accent text-white flex items-center justify-center hover:bg-opacity-90 transition shadow-glow">
+                                                    <i class="fa-solid fa-paper-plane text-xs"></i>
+                                                </button>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
-                        <div class="flex gap-3 pl-[76px]">
-                            <button class="flex-1 bg-white border-2 border-slate-200 text-slate-600 font-bold py-3 rounded-xl hover:bg-slate-50 hover:border-slate-300 transition shadow-sm text-sm">
-                                Need Info
-                            </button>
-                            <button class="flex-[2] bg-gradient-to-r from-green-500 to-emerald-600 text-white font-bold py-3 rounded-xl hover:from-green-600 hover:to-emerald-700 transition shadow-lg shadow-green-500/30 flex items-center justify-center gap-2 text-sm hover:-translate-y-0.5">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                                Approve & Sync Gradebook
-                            </button>
-                        </div>
-
                     </div>
                 </div>
             </div>
+        </section>
 
-            <div class="flex flex-col md:flex-row items-center gap-16 lg:gap-24">
-                <div class="flex-1 space-y-8 relative z-10">
-                    <div class="inline-block px-4 py-1.5 bg-red-50/80 backdrop-blur border border-red-100 text-red-600 rounded-full text-sm font-bold shadow-sm">Proactive Analytics</div>
-                    <h3 class="text-4xl font-bold text-slate-900 tracking-tight">Data Insights That Drive Student Success.</h3>
-                    <p class="text-lg text-slate-600 leading-relaxed font-medium">
-                        Identify at-risk students before it’s too late. Monitor participation trends and TA response times with built-in analytics designed for modern academia.
-                    </p>
+        <section class="py-24 bg-edstream-card/30 border-y border-white/5">
+            <div class="max-w-7xl mx-auto px-6 lg:px-8">
+                <div class="text-center max-w-3xl mx-auto mb-16">
+                    <h2 class="text-3xl md:text-5xl font-serif text-white mb-6">Redefining how learning communities connect.</h2>
+                    <p class="text-lg text-gray-400 leading-relaxed font-light">Traditional forums are dead. Email threads are messy. We built EdStream to bring real-time, organized, and engaging communication to your institution.</p>
                 </div>
-                <div class="flex-1 relative w-full perspective-1000 flex justify-center">
-                    <div class="absolute inset-0 bg-red-200/30 blur-3xl rounded-full transform -translate-x-1/3 -translate-y-1/4 opacity-50 mix-blend-multiply pointer-events-none"></div>
 
-                    <div class="relative w-full max-w-lg bg-white rounded-3xl shadow-[0_20px_50px_-10px_rgba(0,0,0,0.15)] border border-slate-100 overflow-hidden transform hover:rotate-x-6 transition-all duration-700 ease-out">
-                        
-                        <div class="p-6 border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="bg-edstream-card p-10 rounded-2xl border border-white/5 shadow-soft hover:border-white/10 transition-colors relative overflow-hidden group">
+                        <div class="absolute -right-4 -top-6 text-9xl font-serif text-white/5 font-bold group-hover:scale-110 transition-transform duration-500">01</div>
+                        <h3 class="text-xl font-bold text-white mb-4 relative z-10">The Pain</h3>
+                        <p class="text-gray-400 leading-relaxed relative z-10 text-sm">Scattered announcements, lost files, and unengaged students. Legacy LMS tools feel clunky and create friction rather than flow.</p>
+                    </div>
+                    <div class="bg-edstream-card p-10 rounded-2xl border border-white/5 shadow-soft hover:border-white/10 transition-colors relative overflow-hidden group">
+                        <div class="absolute -right-4 -top-6 text-9xl font-serif text-white/5 font-bold group-hover:scale-110 transition-transform duration-500">02</div>
+                        <h3 class="text-xl font-bold text-white mb-4 relative z-10">The Solution</h3>
+                        <p class="text-gray-400 leading-relaxed relative z-10 text-sm">A sleek, centralized hub where channels organize topics, direct messages connect peers, and rich text formatting makes sharing effortless.</p>
+                    </div>
+                    <div class="bg-edstream-sidebar p-10 rounded-2xl border border-edstream-accent/20 shadow-soft relative overflow-hidden group">
+                        <div class="absolute -right-4 -top-6 text-9xl font-serif text-edstream-accent/10 font-bold group-hover:scale-110 transition-transform duration-500">03</div>
+                        <h3 class="text-xl font-bold text-white mb-4 relative z-10">Why It Matters</h3>
+                        <p class="text-gray-400 leading-relaxed relative z-10 text-sm">Better communication directly translates to higher engagement, faster problem resolution, and a stronger sense of belonging.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="features" class="py-24 bg-edstream-bg">
+            <div class="max-w-7xl mx-auto px-6 lg:px-8 space-y-32">
+                
+                <div class="grid lg:grid-cols-2 gap-16 items-center">
+                    <div class="order-2 lg:order-1">
+                        <div class="w-12 h-12 rounded-xl bg-edstream-accent/10 border border-edstream-accent/20 flex items-center justify-center mb-6">
+                            <i class="fa-solid fa-layer-group text-edstream-accent text-xl"></i>
+                        </div>
+                        <h3 class="text-3xl font-serif font-bold text-white mb-4">Organized Channels for Every Topic</h3>
+                        <p class="text-lg text-gray-400 leading-relaxed mb-8">Keep conversations focused and easy to find. Create channels for specific projects, general announcements, or peer mentoring.</p>
+                        <ul class="space-y-4">
+                            <li class="flex items-start gap-3">
+                                <i class="fa-solid fa-circle-check text-edstream-accent mt-1.5"></i>
+                                <span class="text-gray-300">Public and private channels with granular permissions.</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fa-solid fa-circle-check text-edstream-accent mt-1.5"></i>
+                                <span class="text-gray-300">Threaded replies to keep the main chat clean.</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fa-solid fa-circle-check text-edstream-accent mt-1.5"></i>
+                                <span class="text-gray-300">Pin important announcements to the top.</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="order-1 lg:order-2 bg-edstream-card rounded-2xl shadow-soft border border-white/10 h-80 flex items-center justify-center p-8 relative overflow-hidden group">
+                        <div class="absolute inset-0 bg-gradient-to-br from-edstream-accent/5 to-transparent"></div>
+                        <span class="text-gray-500 font-bold tracking-widest uppercase text-sm z-10 border-2 border-dashed border-white/20 px-6 py-3 rounded-lg backdrop-blur-sm">[ Image Placeholder: Channels UI ]</span>
+                    </div>
+                </div>
+
+                <div class="grid lg:grid-cols-2 gap-16 items-center">
+                    <div class="bg-edstream-card rounded-2xl shadow-soft border border-white/10 h-80 flex items-center justify-center p-8 relative overflow-hidden">
+                        <div class="absolute inset-0 bg-gradient-to-tr from-brand-400/5 to-transparent"></div>
+                        <span class="text-gray-500 font-bold tracking-widest uppercase text-sm z-10 border-2 border-dashed border-white/20 px-6 py-3 rounded-lg backdrop-blur-sm">[ Image Placeholder: Rich Editor ]</span>
+                    </div>
+                    <div>
+                        <div class="w-12 h-12 rounded-xl bg-brand-400/10 border border-brand-400/20 flex items-center justify-center mb-6">
+                            <i class="fa-solid fa-pen-nib text-brand-400 text-xl"></i>
+                        </div>
+                        <h3 class="text-3xl font-serif font-bold text-white mb-4">Rich Text & Code Friendly</h3>
+                        <p class="text-lg text-gray-400 leading-relaxed mb-8">Express your ideas exactly how you want. Whether it's a block of Python code, a mathematical formula, or a detailed essay, our editor handles it seamlessly.</p>
+                        <ul class="space-y-4">
+                            <li class="flex items-start gap-3">
+                                <i class="fa-solid fa-circle-check text-brand-400 mt-1.5"></i>
+                                <span class="text-gray-300">Syntax highlighting for 50+ programming languages.</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fa-solid fa-circle-check text-brand-400 mt-1.5"></i>
+                                <span class="text-gray-300">Inline Markdown support for rapid formatting.</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="grid lg:grid-cols-2 gap-16 items-center">
+                    <div class="order-2 lg:order-1">
+                        <div class="w-12 h-12 rounded-xl bg-edstream-accent/10 border border-edstream-accent/20 flex items-center justify-center mb-6">
+                            <i class="fa-solid fa-users text-edstream-accent text-xl"></i>
+                        </div>
+                        <h3 class="text-3xl font-serif font-bold text-white mb-4">Roles & Peer Mentoring</h3>
+                        <p class="text-lg text-gray-400 leading-relaxed mb-8">Empower your community by defining clear roles. Easily identify Professors, TAs, and Peer Mentors with visual tags.</p>
+                        <ul class="space-y-4">
+                            <li class="flex items-start gap-3">
+                                <i class="fa-solid fa-circle-check text-edstream-accent mt-1.5"></i>
+                                <span class="text-gray-300">Custom role badges (e.g., "Professor", "TA").</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fa-solid fa-circle-check text-edstream-accent mt-1.5"></i>
+                                <span class="text-gray-300">Direct messaging for 1-on-1 support.</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="order-1 lg:order-2 bg-edstream-card rounded-2xl shadow-soft border border-white/10 h-80 flex items-center justify-center p-8 relative overflow-hidden">
+                        <div class="absolute inset-0 bg-gradient-to-bl from-canvas-link/5 to-transparent"></div>
+                        <span class="text-gray-500 font-bold tracking-widest uppercase text-sm z-10 border-2 border-dashed border-white/20 px-6 py-3 rounded-lg backdrop-blur-sm">[ Image Placeholder: Roles/DMs ]</span>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section class="py-24 bg-edstream-card/30 border-y border-white/5">
+            <div class="max-w-7xl mx-auto px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl md:text-5xl font-serif text-white">How is EdStream different?</h2>
+                </div>
+
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="p-8 rounded-2xl border border-white/5 bg-edstream-card hover:border-white/20 transition-all shadow-soft group">
+                        <div class="w-12 h-12 rounded-full bg-yellow-500/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-bolt text-yellow-400"></i>
+                        </div>
+                        <h4 class="text-lg font-bold text-white mb-2">Lightning Fast</h4>
+                        <p class="text-gray-500 text-sm leading-relaxed">Built on modern architecture, ensuring messages sync instantly across all devices without lag.</p>
+                    </div>
+                    <div class="p-8 rounded-2xl border border-white/5 bg-edstream-card hover:border-white/20 transition-all shadow-soft group">
+                        <div class="w-12 h-12 rounded-full bg-brand-500/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-shield-halved text-brand-400"></i>
+                        </div>
+                        <h4 class="text-lg font-bold text-white mb-2">Enterprise Security</h4>
+                        <p class="text-gray-500 text-sm leading-relaxed">End-to-end encryption and compliance with FERPA/GDPR standards to keep your data safe.</p>
+                    </div>
+                    <div class="p-8 rounded-2xl border border-white/5 bg-edstream-card hover:border-white/20 transition-all shadow-soft group">
+                        <div class="w-12 h-12 rounded-full bg-green-500/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-plug text-green-400"></i>
+                        </div>
+                        <h4 class="text-lg font-bold text-white mb-2">LMS Integrations</h4>
+                        <p class="text-gray-500 text-sm leading-relaxed">Connects seamlessly with Canvas, Blackboard, and Moodle to sync rosters automatically.</p>
+                    </div>
+                    <div class="p-8 rounded-2xl border border-white/5 bg-edstream-card hover:border-white/20 transition-all shadow-soft group">
+                        <div class="w-12 h-12 rounded-full bg-purple-500/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-magnifying-glass text-purple-400"></i>
+                        </div>
+                        <h4 class="text-lg font-bold text-white mb-2">Universal Search</h4>
+                        <p class="text-gray-500 text-sm leading-relaxed">Find any message, file, or snippet instantly with our powerful global search engine.</p>
+                    </div>
+                    <div class="p-8 rounded-2xl border border-white/5 bg-edstream-card hover:border-white/20 transition-all shadow-soft group">
+                        <div class="w-12 h-12 rounded-full bg-edstream-accent/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-palette text-edstream-accent"></i>
+                        </div>
+                        <h4 class="text-lg font-bold text-white mb-2">Custom Branding</h4>
+                        <p class="text-gray-500 text-sm leading-relaxed">Make the platform yours. Add your logo, institutional colors, and custom emojis.</p>
+                    </div>
+                    <div class="p-8 rounded-2xl border border-white/5 bg-edstream-card hover:border-white/20 transition-all shadow-soft group">
+                        <div class="w-12 h-12 rounded-full bg-pink-500/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-chart-line text-pink-400"></i>
+                        </div>
+                        <h4 class="text-lg font-bold text-white mb-2">Engagement Analytics</h4>
+                        <p class="text-gray-500 text-sm leading-relaxed">Gain insights into community health with detailed dashboards on user activity and trends.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="solutions" class="py-24 bg-[#0A0C10] relative overflow-hidden">
+            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-brand-500/10 blur-[120px] rounded-full pointer-events-none"></div>
+
+            <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
+                <div class="mb-16">
+                    <h2 class="text-3xl md:text-5xl font-serif text-white mb-6">Solutions for every industry.</h2>
+                    <p class="text-lg text-gray-400 max-w-2xl font-light">Adaptable to your unique workflow, Edstream is the engine powering top-tier institutions and modern enterprises.</p>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="bg-edstream-sidebar border border-white/10 p-8 rounded-2xl hover:-translate-y-2 transition-transform duration-300 shadow-soft">
+                        <i class="fa-solid fa-graduation-cap text-brand-400 text-3xl mb-6"></i>
+                        <h3 class="text-xl font-bold text-white mb-4">For Educators</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed mb-8 h-20">Host office hours, coordinate with TAs, and create a centralized hub for coursework discussions.</p>
+                        <a href="#" class="text-edstream-accent font-medium hover:text-white transition-colors inline-flex items-center gap-2">
+                            Learn more <i class="fa-solid fa-arrow-right text-sm"></i>
+                        </a>
+                    </div>
+                    <div class="bg-edstream-sidebar border border-white/10 p-8 rounded-2xl hover:-translate-y-2 transition-transform duration-300 shadow-soft">
+                        <i class="fa-solid fa-building text-brand-400 text-3xl mb-6"></i>
+                        <h3 class="text-xl font-bold text-white mb-4">For Enterprise</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed mb-8 h-20">Break down silos. Organize departmental channels, streamline project management, and connect remote teams.</p>
+                        <a href="#" class="text-edstream-accent font-medium hover:text-white transition-colors inline-flex items-center gap-2">
+                            Learn more <i class="fa-solid fa-arrow-right text-sm"></i>
+                        </a>
+                    </div>
+                    <div class="bg-edstream-sidebar border border-white/10 p-8 rounded-2xl hover:-translate-y-2 transition-transform duration-300 shadow-soft">
+                        <i class="fa-solid fa-code text-brand-400 text-3xl mb-6"></i>
+                        <h3 class="text-xl font-bold text-white mb-4">For Developers</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed mb-8 h-20">Share code snippets with syntax highlighting, integrate with GitHub, and build custom bots.</p>
+                        <a href="#" class="text-edstream-accent font-medium hover:text-white transition-colors inline-flex items-center gap-2">
+                            Learn more <i class="fa-solid fa-arrow-right text-sm"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-24 bg-edstream-card/50 border-y border-white/5">
+            <div class="max-w-7xl mx-auto px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl md:text-5xl font-serif text-white mb-4">Loved by communities</h2>
+                    <p class="text-lg text-gray-500 font-light">Don't just take our word for it.</p>
+                </div>
+
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 items-start">
+                    <div class="bg-edstream-sidebar p-6 rounded-2xl shadow-soft border border-white/5">
+                        <div class="flex text-brand-400 text-sm mb-4"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                        <p class="text-gray-300 mb-6 italic text-sm leading-relaxed">"Edstream completely changed how I manage my Programming Fundamentals class. The students are so much more engaged, and the code-block feature is a lifesaver."</p>
+                        <div class="flex items-center gap-3">
+                            <img src="https://i.pravatar.cc/100?img=12" class="w-10 h-10 rounded-full" alt="User">
                             <div>
-                                <h4 class="text-lg font-bold text-slate-900">Course Engagement Overview</h4>
-                                <p class="text-xs font-medium text-slate-500">Last 30 Days · BIO 101</p>
-                            </div>
-                            <div class="bg-red-100 border border-red-200 text-red-700 text-xs font-bold px-3 py-1.5 rounded-full shadow-sm flex items-center gap-1.5 animate-pulse-slow">
-                                <span class="relative flex h-2 w-2">
-                                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
-                                  <span class="relative inline-flex rounded-full h-2 w-2 bg-red-500"></span>
-                                </span>
-                                3 Students At-Risk
+                                <h5 class="text-sm font-bold text-white">Ashish Aggarwal</h5>
+                                <span class="text-xs text-gray-500">Professor, Computer Science</span>
                             </div>
                         </div>
-
-                        <div class="p-6">
-                            <div class="flex justify-between items-end mb-4">
-                                <div>
-                                    <div class="text-3xl font-bold text-slate-900">84%</div>
-                                    <div class="text-sm font-medium text-green-600 flex items-center gap-1">
-                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
-                                        Avg. Participation (+12%)
-                                    </div>
-                                </div>
-                                <div class="flex gap-3 text-xs font-medium text-slate-500">
-                                    <div class="flex items-center gap-1"><div class="w-2 h-2 rounded-full bg-brand-500"></div>Chat Activity</div>
-                                    <div class="flex items-center gap-1"><div class="w-2 h-2 rounded-full bg-slate-300"></div>Canvas Avg</div>
-                                </div>
-                            </div>
-
-                            <div class="relative h-48 w-full">
-                                <div class="absolute inset-0 flex flex-col justify-between pointer-events-none">
-                                    <div class="border-t border-slate-100 h-0 w-full"></div><div class="border-t border-slate-100 h-0 w-full"></div><div class="border-t border-slate-100 h-0 w-full"></div><div class="border-t border-slate-100 h-0 w-full"></div><div class="border-t border-slate-200 h-0 w-full"></div>
-                                </div>
-                                <svg class="absolute inset-0 h-full w-full overflow-visible" preserveAspectRatio="none" viewBox="0 0 100 100">
-                                    <path d="M0 100 L0 60 C10 65, 20 55, 30 60 C40 65, 50 50, 60 55 C70 60, 80 45, 90 50 L100 45 L100 100 Z" fill="#e2e8f0" opacity="0.3"></path>
-                                    <defs>
-                                        <linearGradient id="chartGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-                                            <stop offset="0%" style="stop-color:rgb(14, 165, 233);stop-opacity:0.4" />
-                                            <stop offset="100%" style="stop-color:rgb(14, 165, 233);stop-opacity:0" />
-                                        </linearGradient>
-                                    </defs>
-                                    <path d="M0 100 L0 70 C15 75, 25 40, 40 35 C55 30, 65 20, 80 15 L100 5 L100 100 Z" fill="url(#chartGradient)"></path>
-                                    <path d="M0 70 C15 75, 25 40, 40 35 C55 30, 65 20, 80 15 L100 5" fill="none" stroke="#0ea5e9" stroke-width="3" stroke-linecap="round" class="chart-line shadow-glow-brand"></path>
-                                    <circle cx="100" cy="5" r="3" fill="#0ea5e9" stroke="white" stroke-width="2" class="shadow-glow-brand" />
-                                </svg>
-                                <div class="absolute -bottom-6 inset-x-0 flex justify-between text-xs font-medium text-slate-400">
-                                    <span>Week 1</span><span>Week 2</span><span>Week 3</span><span>Week 4</span>
-                                </div>
+                    </div>
+                    <div class="bg-edstream-sidebar p-6 rounded-2xl shadow-soft border border-white/5">
+                        <div class="flex text-brand-400 text-sm mb-4"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                        <p class="text-gray-300 mb-6 italic text-sm leading-relaxed">"As a Peer Mentor, keeping track of student questions used to be a nightmare via email. The organized channels in Edstream make it so easy to help everyone efficiently."</p>
+                        <div class="flex items-center gap-3">
+                            <img src="https://i.pravatar.cc/100?img=5" class="w-10 h-10 rounded-full" alt="User">
+                            <div>
+                                <h5 class="text-sm font-bold text-white">Alyssa Wang</h5>
+                                <span class="text-xs text-gray-500">Peer Mentor</span>
                             </div>
                         </div>
-                         <div class="grid grid-cols-2 border-t border-slate-100 bg-slate-50/50 mt-8">
-                            <div class="p-4 border-r border-slate-100 text-center">
-                                <div class="text-2xl font-bold text-slate-900">1.2h</div>
-                                <div class="text-xs font-medium text-slate-500">Avg TA Response</div>
-                            </div>
-                             <div class="p-4 text-center flex flex-col items-center justify-center">
-                                 <div class="flex items-end gap-1 h-8 mb-1">
-                                     <div class="w-1 bg-red-300 h-full rounded-t"></div>
-                                     <div class="w-1 bg-yellow-300 h-2/3 rounded-t"></div>
-                                     <div class="w-1 bg-green-300 h-1/3 rounded-t"></div>
-                                     <div class="w-1 bg-brand-300 h-full rounded-t opacity-20"></div>
-                                 </div>
-                                <div class="text-xs font-medium text-slate-500">Grade Distribution</div>
+                    </div>
+                    <div class="bg-edstream-sidebar p-6 rounded-2xl shadow-soft border border-white/5">
+                        <div class="flex text-brand-400 text-sm mb-4"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                        <p class="text-gray-300 mb-6 italic text-sm leading-relaxed">"We transitioned our entire startup's communication to Edstream. The UI is clean, not bloated, and it just works. Highly recommended."</p>
+                        <div class="flex items-center gap-3">
+                            <img src="https://i.pravatar.cc/100?img=33" class="w-10 h-10 rounded-full" alt="User">
+                            <div>
+                                <h5 class="text-sm font-bold text-white">David Chen</h5>
+                                <span class="text-xs text-gray-500">CTO, TechFlow</span>
                             </div>
                         </div>
-
+                    </div>
+                    <div class="bg-edstream-sidebar p-6 rounded-2xl shadow-soft border border-white/5">
+                        <div class="flex text-brand-400 text-sm mb-4"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                        <p class="text-gray-300 mb-6 italic text-sm leading-relaxed">"The best part is how intuitive it is. We didn't need any training sessions; everyone just logged in and started collaborating instantly."</p>
+                        <div class="flex items-center gap-3">
+                            <img src="https://i.pravatar.cc/100?img=47" class="w-10 h-10 rounded-full" alt="User">
+                            <div>
+                                <h5 class="text-sm font-bold text-white">Sarah Jenkins</h5>
+                                <span class="text-xs text-gray-500">Product Manager</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
+        </section>
 
-        </div>
-    </section>
-
-    <section id="faq" class="py-24 relative z-10">
-        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-3xl font-bold text-slate-900 mb-12 text-center">Frequently Asked Questions</h2>
-            <div class="space-y-6">
-                <div class="border border-slate-200 bg-white/60 backdrop-blur-md rounded-lg p-6 hover:border-brand-300 transition cursor-pointer shadow-sm">
-                    <h4 class="font-bold text-slate-900 mb-2 text-lg">Can EdStream handle massive courses?</h4>
-                    <p class="text-slate-600 leading-relaxed">Absolutely. EdStream supports courses with 10,000+ students, utilizing automated workflows and channel groups to keep communication manageable.</p>
+        <section class="py-24 bg-edstream-bg overflow-hidden">
+            <div class="max-w-5xl mx-auto px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl md:text-5xl font-serif text-white mb-4">See how we stack up</h2>
                 </div>
-                <div class="border border-slate-200 bg-white/60 backdrop-blur-md rounded-lg p-6 hover:border-brand-300 transition cursor-pointer shadow-sm">
-                    <h4 class="font-bold text-slate-900 mb-2 text-lg">Does it replace Canvas Discussions?</h4>
-                    <p class="text-slate-600 leading-relaxed">No. EdStream is for real-time, informal communication (like Slack). Canvas Discussions should still be used for formal, graded assignments.</p>
+
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse min-w-[600px]">
+                        <thead>
+                            <tr>
+                                <th class="py-5 px-6 font-bold text-white border-b border-white/10 w-1/3">Features</th>
+                                <th class="py-5 px-6 font-bold text-edstream-accent bg-edstream-accent/10 border-t border-x border-edstream-accent/20 rounded-t-xl text-center w-1/4 text-lg">EdStream</th>
+                                <th class="py-5 px-6 font-semibold text-gray-500 border-b border-white/10 text-center w-1/4">Legacy LMS Chat</th>
+                                <th class="py-5 px-6 font-semibold text-gray-500 border-b border-white/10 text-center w-1/4">Enterprise Chat X</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="py-4 px-6 text-gray-400 border-b border-white/5">Real-time Messaging</td>
+                                <td class="py-4 px-6 text-center bg-edstream-accent/5 border-x border-edstream-accent/20 border-b border-white/5"><i class="fa-solid fa-check text-edstream-accent"></i></td>
+                                <td class="py-4 px-6 text-center text-gray-600 border-b border-white/5"><i class="fa-solid fa-minus"></i></td>
+                                <td class="py-4 px-6 text-center text-gray-600 border-b border-white/5"><i class="fa-solid fa-check text-gray-600"></i></td>
+                            </tr>
+                            <tr>
+                                <td class="py-4 px-6 text-gray-400 border-b border-white/5">Native Code Syntax Highlighting</td>
+                                <td class="py-4 px-6 text-center bg-edstream-accent/5 border-x border-edstream-accent/20 border-b border-white/5"><i class="fa-solid fa-check text-edstream-accent"></i></td>
+                                <td class="py-4 px-6 text-center text-gray-600 border-b border-white/5"><i class="fa-solid fa-xmark"></i></td>
+                                <td class="py-4 px-6 text-center text-gray-600 border-b border-white/5"><i class="fa-solid fa-minus"></i> <span class="text-xs block text-gray-700">(Requires Plugins)</span></td>
+                            </tr>
+                            <tr>
+                                <td class="py-4 px-6 text-gray-400 border-b border-white/5">Education-first Roles (TA, Mentor)</td>
+                                <td class="py-4 px-6 text-center bg-edstream-accent/5 border-x border-edstream-accent/20 border-b border-white/5"><i class="fa-solid fa-check text-edstream-accent"></i></td>
+                                <td class="py-4 px-6 text-center text-gray-600 border-b border-white/5"><i class="fa-solid fa-minus"></i></td>
+                                <td class="py-4 px-6 text-center text-gray-600 border-b border-white/5"><i class="fa-solid fa-xmark"></i></td>
+                            </tr>
+                            <tr>
+                                <td class="py-4 px-6 text-gray-400 border-b border-white/5">Pricing per user</td>
+                                <td class="py-4 px-6 text-center bg-edstream-accent/5 border-x border-edstream-accent/20 border-b border-edstream-accent/20 font-bold text-white rounded-b-xl">$0 <span class="text-xs font-normal text-gray-500">/edu</span></td>
+                                <td class="py-4 px-6 text-center text-gray-600 border-b border-white/5">Bundled</td>
+                                <td class="py-4 px-6 text-center text-gray-600 border-b border-white/5">$8+</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <footer class="bg-brand-600 text-white py-16 border-t border-brand-500 relative z-10">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-12">
+        <section class="py-24 bg-edstream-card/30 border-y border-white/5">
+            <div class="max-w-3xl mx-auto px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl md:text-5xl font-serif text-white">Frequently Asked Questions</h2>
+                </div>
+
+                <div class="space-y-4">
+                    <div class="bg-edstream-sidebar border border-white/5 rounded-xl overflow-hidden shadow-soft">
+                        <button class="faq-btn w-full text-left px-6 py-5 focus:outline-none flex justify-between items-center bg-edstream-sidebar hover:bg-white/5 transition-colors">
+                            <span class="font-bold text-white">Is Edstream free for educational institutions?</span>
+                            <i class="fa-solid fa-chevron-down text-gray-500 transition-transform duration-300"></i>
+                        </button>
+                        <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out bg-edstream-sidebar">
+                            <div class="px-6 pb-5 text-gray-400 text-sm leading-relaxed border-t border-white/5 pt-4">
+                                Yes! We offer a completely free tier for verified universities and K-12 schools, which includes all core messaging features, unlimited channels, and standard file storage.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-edstream-sidebar border border-white/5 rounded-xl overflow-hidden shadow-soft">
+                        <button class="faq-btn w-full text-left px-6 py-5 focus:outline-none flex justify-between items-center bg-edstream-sidebar hover:bg-white/5 transition-colors">
+                            <span class="font-bold text-white">Can I import users from my current LMS?</span>
+                            <i class="fa-solid fa-chevron-down text-gray-500 transition-transform duration-300"></i>
+                        </button>
+                        <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out bg-edstream-sidebar">
+                            <div class="px-6 pb-5 text-gray-400 text-sm leading-relaxed border-t border-white/5 pt-4">
+                                Absolutely. We support bulk CSV imports and have native integrations with Canvas, Blackboard, and Google Classroom to sync your student rosters automatically.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-edstream-sidebar border border-white/5 rounded-xl overflow-hidden shadow-soft">
+                        <button class="faq-btn w-full text-left px-6 py-5 focus:outline-none flex justify-between items-center bg-edstream-sidebar hover:bg-white/5 transition-colors">
+                            <span class="font-bold text-white">How secure is the platform?</span>
+                            <i class="fa-solid fa-chevron-down text-gray-500 transition-transform duration-300"></i>
+                        </button>
+                        <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out bg-edstream-sidebar">
+                            <div class="px-6 pb-5 text-gray-400 text-sm leading-relaxed border-t border-white/5 pt-4">
+                                Security is our top priority. All data is encrypted at rest and in transit. We are fully compliant with SOC2, GDPR, and FERPA regulations.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-edstream-sidebar border border-white/5 rounded-xl overflow-hidden shadow-soft">
+                        <button class="faq-btn w-full text-left px-6 py-5 focus:outline-none flex justify-between items-center bg-edstream-sidebar hover:bg-white/5 transition-colors">
+                            <span class="font-bold text-white">Does it support code formatting?</span>
+                            <i class="fa-solid fa-chevron-down text-gray-500 transition-transform duration-300"></i>
+                        </button>
+                        <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out bg-edstream-sidebar">
+                            <div class="px-6 pb-5 text-gray-400 text-sm leading-relaxed border-t border-white/5 pt-4">
+                                Yes, Edstream features native syntax highlighting for over 50 programming languages. Just wrap your code in triple backticks, and we'll format it beautifully.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-edstream-bg pt-24 pb-10 text-white border-t border-white/10">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            
+            <div class="bg-edstream-sidebar border border-white/10 rounded-3xl p-10 lg:p-16 text-center mb-20 relative overflow-hidden shadow-soft">
+                <div class="absolute top-0 right-0 w-64 h-64 bg-brand-500/20 rounded-full blur-[80px] -z-10 translate-x-1/2 -translate-y-1/2 pointer-events-none"></div>
+                <div class="absolute bottom-0 left-0 w-64 h-64 bg-edstream-accent/20 rounded-full blur-[80px] -z-10 -translate-x-1/2 translate-y-1/2 pointer-events-none"></div>
                 
-                <div class="col-span-1 md:col-span-2">
+                <h2 class="text-3xl md:text-5xl font-serif font-bold mb-6 text-white">Ready to transform your communication?</h2>
+                <p class="text-gray-400 mb-8 max-w-2xl mx-auto">Join thousands of educators and teams who have already upgraded their workspace.</p>
+                
+                <form class="flex flex-col sm:flex-row max-w-lg mx-auto gap-3">
+                    <input type="email" placeholder="Enter your work email" class="flex-1 px-5 py-4 rounded-xl bg-[#0A0C10] border border-white/10 text-white outline-none focus:border-edstream-accent placeholder-gray-600">
+                    <button type="submit" class="px-8 py-4 rounded-xl bg-edstream-accent text-white font-medium hover:bg-opacity-90 transition shadow-glow whitespace-nowrap">
+                        Get Started
+                    </button>
+                </form>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8 mb-16">
+                <div class="col-span-2 lg:col-span-2 pr-8">
                     <div class="flex items-center gap-2 mb-6">
-                        <span class="text-white font-bold text-2xl tracking-tight">EdStream</span>
+                        <div class="w-8 h-8 rounded-lg bg-edstream-accent flex items-center justify-center text-white font-bold text-xl">E</div>
+                        <span class="font-serif font-bold text-2xl text-white tracking-tight">Edstream</span>
                     </div>
-                    <p class="text-brand-100 text-sm leading-relaxed max-w-xs mb-6 font-medium">
-                        Cultivating Campus Communities. The communication layer for the modern university experience.
-                    </p>
-                    <div class="text-xs text-brand-200/80 font-medium">
-                        &copy; 2025 EdStream. <br>Born from the University of Florida Research Foundation.
+                    <p class="text-gray-500 text-sm leading-relaxed mb-6">Building the communication layer for modern education and forward-thinking enterprises.</p>
+                    <div class="flex gap-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-gray-400 hover:bg-edstream-accent hover:text-white transition"><i class="fa-brands fa-twitter"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-gray-400 hover:bg-edstream-accent hover:text-white transition"><i class="fa-brands fa-linkedin-in"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-gray-400 hover:bg-edstream-accent hover:text-white transition"><i class="fa-brands fa-github"></i></a>
                     </div>
                 </div>
-
+                
                 <div>
-                    <h3 class="text-sm font-bold uppercase tracking-wider text-brand-200 mb-4">Quick Links</h3>
-                    <ul class="space-y-3">
-                        <li><a href="features.html" class="page-link text-white hover:text-white/80 transition-colors font-medium text-sm">Features</a></li>
-                        <li><a href="story.html" class="page-link text-white hover:text-white/80 transition-colors font-medium text-sm">About</a></li>
-                        <li><a href="faq.html" class="page-link text-white hover:text-white/80 transition-colors font-medium text-sm">FAQ</a></li>
-                        <li><a href="https://universityofflorida-6bad23dc.mintlify.app" class="page-link text-white hover:text-white/80 transition-colors font-medium text-sm">Guides</a></li>
-                        <li><a href="contact.html" class="page-link text-white hover:text-white/80 transition-colors font-medium text-sm">Contact</a></li>
+                    <h4 class="font-bold mb-6 text-white text-sm tracking-widest uppercase">Product</h4>
+                    <ul class="space-y-4 text-sm text-gray-500">
+                        <li><a href="#" class="hover:text-brand-400 transition">Features</a></li>
+                        <li><a href="#" class="hover:text-brand-400 transition">Integrations</a></li>
+                        <li><a href="#" class="hover:text-brand-400 transition">Pricing</a></li>
+                        <li><a href="#" class="hover:text-brand-400 transition">Changelog</a></li>
                     </ul>
                 </div>
 
                 <div>
-                    <h3 class="text-sm font-bold uppercase tracking-wider text-brand-200 mb-4">Legal & Support</h3>
-                    <ul class="space-y-3">
-                        <li><a href="privacy.html" class="page-link text-white hover:text-white/80 transition-colors font-medium text-sm">Privacy Policy</a></li>
-                        <li><a href="terms.html" class="page-link text-white hover:text-white/80 transition-colors font-medium text-sm">Terms of Service</a></li>
-                        <li><a href="https://universityofflorida-6bad23dc.mintlify.app" class="page-link text-white hover:text-white/80 transition-colors font-medium text-sm">Documentation</a></li>
+                    <h4 class="font-bold mb-6 text-white text-sm tracking-widest uppercase">Solutions</h4>
+                    <ul class="space-y-4 text-sm text-gray-500">
+                        <li><a href="#" class="hover:text-brand-400 transition">Higher Education</a></li>
+                        <li><a href="#" class="hover:text-brand-400 transition">K-12 Schools</a></li>
+                        <li><a href="#" class="hover:text-brand-400 transition">Enterprise Teams</a></li>
+                        <li><a href="#" class="hover:text-brand-400 transition">Developers</a></li>
                     </ul>
                 </div>
 
+                <div>
+                    <h4 class="font-bold mb-6 text-white text-sm tracking-widest uppercase">Company</h4>
+                    <ul class="space-y-4 text-sm text-gray-500">
+                        <li><a href="#" class="hover:text-brand-400 transition">About Us</a></li>
+                        <li><a href="#" class="hover:text-brand-400 transition">Careers</a></li>
+                        <li><a href="#" class="hover:text-brand-400 transition">Blog</a></li>
+                        <li><a href="mailto:info@edstream.io" class="hover:text-brand-400 transition">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-gray-600 text-sm">© 2026 Edstream Inc. All rights reserved.</p>
+                <div class="flex gap-6 text-sm text-gray-500">
+                    <a href="#" class="hover:text-white transition">Privacy Policy</a>
+                    <a href="#" class="hover:text-white transition">Terms of Service</a>
+                    <a href="#" class="hover:text-white transition">Cookie Settings</a>
+                </div>
             </div>
         </div>
     </footer>
 
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // 1. Fade In on Load
-            setTimeout(() => {
-                document.body.classList.add('loaded');
-            }, 30); 
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
 
-            // 2. Mobile Menu Toggle
-            const btn = document.getElementById('mobile-menu-btn');
-            const menu = document.getElementById('mobile-menu');
-            if(btn && menu) {
-                btn.addEventListener('click', () => {
-                    menu.classList.toggle('hidden');
-                });
-            }
-
-            // 3. Professional Page Transition
-            const links = document.querySelectorAll('.page-link');
-            
-            links.forEach(link => {
-                link.addEventListener('click', (e) => {
-                    const href = link.getAttribute('href');
-                    
-                    if (!href || href.startsWith('#') || href.startsWith('http')) {
-                        if (href && href.startsWith('#')) {
-                            e.preventDefault();
-                            const target = document.querySelector(href);
-                            if(target) target.scrollIntoView({behavior: 'smooth'});
-                        }
-                        return; 
+        // FAQ Accordion Logic
+        const faqButtons = document.querySelectorAll('.faq-btn');
+        
+        faqButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const content = button.nextElementSibling;
+                const icon = button.querySelector('i');
+                
+                // Close all other open FAQs
+                document.querySelectorAll('.faq-content').forEach(otherContent => {
+                    if (otherContent !== content && otherContent.style.maxHeight) {
+                        otherContent.style.maxHeight = null;
+                        otherContent.previousElementSibling.querySelector('i').classList.remove('rotate-180');
                     }
-
-                    e.preventDefault(); 
-                    document.body.classList.remove('loaded');
-
-                    setTimeout(() => {
-                        window.location.href = href;
-                    }, 200);
                 });
+
+                // Toggle current FAQ
+                if (content.style.maxHeight) {
+                    content.style.maxHeight = null;
+                    icon.classList.remove('rotate-180');
+                } else {
+                    content.style.maxHeight = content.scrollHeight + "px";
+                    icon.classList.add('rotate-180');
+                }
             });
         });
     </script>
