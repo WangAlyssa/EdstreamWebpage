@@ -1,152 +1,143 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Our Story - EdStream</title>
     
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,500;0,700;1,500;1,700&display=swap" rel="stylesheet">
     
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
             theme: {
                 extend: {
-                    fontFamily: { sans: ['Inter', 'sans-serif'] },
                     colors: {
-                        brand: { 
-                            50: '#f0f5ff', 
-                            100: '#e0eaff', 
-                            200: '#c7dafe', 
-                            300: '#a3c2fe', 
-                            400: '#7c9ef8', 
-                            500: '#5879ea', 
-                            600: '#3b5998',
-                            700: '#2d4475', 
-                            800: '#263860', 
-                            900: '#22304e' 
-                        }
+                        canvas: { nav: '#2D3B45', link: '#0374B5', text: '#2D3B45', bg: '#F5F5F5', primary: '#0374B5' },
+                        edstream: { sidebar: '#1e1e2d', bg: '#0A0C10', accent: '#6366f1', card: '#13151c' },
+                        brand: { 50: '#f0f9ff', 100: '#e0f2fe', 400: '#38bdf8', 500: '#0ea5e9', 600: '#3b5998', 700: '#0369a1' }
                     },
-                    animation: {
-                        'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        serif: ['"Playfair Display"', 'serif'],
                     },
-                    keyframes: {
-                        fadeInUp: {
-                            '0%': { opacity: '0', transform: 'translateY(20px)' },
-                            '100%': { opacity: '1', transform: 'translateY(0)' },
-                        }
+                    boxShadow: {
+                        'soft': '0 20px 40px -15px rgba(0,0,0,0.5)',
+                        'glow': '0 0 30px -5px rgba(99, 102, 241, 0.4)',
+                    },
+                    transitionTimingFunction: {
+                        'apple': 'cubic-bezier(0.16, 1, 0.3, 1)',
                     }
                 }
             }
         }
     </script>
-    
-    <style>
-        body {
-            opacity: 0;
-            transition: opacity 0.2s ease-in-out; 
-            background-color: #ffffff;
-            overflow-x: hidden;
-        }
-        body.loaded {
-            opacity: 1;
-        }
-        .page-link { cursor: pointer; }
-    </style>
 </head>
-<body class="font-sans text-slate-800 antialiased bg-white flex flex-col min-h-screen">
+<body class="bg-edstream-bg font-sans text-gray-400 antialiased selection:bg-edstream-accent/30 selection:text-white overflow-x-hidden">
 
-    <nav class="fixed w-full z-50 bg-white/90 backdrop-blur-xl border-b border-slate-100 shadow-md transition-all duration-300">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-20">
-                <a href="index.html" class="page-link flex-shrink-0 flex items-center gap-2 cursor-pointer group">
-                    <img src="logo.png" alt="EdStream" class="h-9 w-auto group-hover:scale-105 transition-transform duration-200">
+    <header class="sticky top-0 z-50 bg-edstream-bg/80 backdrop-blur-md border-b border-white/10 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="flex items-center h-20">
+                <a href="index.html" class="flex-shrink-0 flex items-center gap-3 cursor-pointer group">
+                    <svg viewBox="0 0 100 100" class="h-8 w-auto group-hover:scale-105 transition-transform drop-shadow-lg" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M 22 15 L 14 5 M 12 25 L 4 15" stroke="#FF4500" stroke-width="4" stroke-linecap="round"/>
+                        <path d="M 82 85 L 92 95 M 90 75 L 100 85" stroke="#FF4500" stroke-width="4" stroke-linecap="round"/>
+                        
+                        <path d="M 25 80 C 28 72 25 65 20 60 C 10 50 10 25 35 15 C 65 5 95 20 90 50 C 85 80 45 85 25 80 Z" stroke="#0033A0" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+                        
+                        <circle cx="50" cy="40" r="7" stroke="#0033A0" stroke-width="4"/>
+                        <path d="M 36 60 C 36 50 44 47 50 47 C 56 47 64 50 64 60" stroke="#0033A0" stroke-width="4" stroke-linecap="round"/>
+                        
+                        <circle cx="30" cy="45" r="5" stroke="#0033A0" stroke-width="4"/>
+                        <path d="M 22 60 C 22 53 26 51 30 51 C 32 51 34 52 36 54" stroke="#0033A0" stroke-width="4" stroke-linecap="round"/>
+                        
+                        <circle cx="70" cy="45" r="5" stroke="#0033A0" stroke-width="4"/>
+                        <path d="M 64 54 C 66 52 68 51 70 51 C 74 51 78 53 78 60" stroke="#0033A0" stroke-width="4" stroke-linecap="round"/>
+                    </svg>
+                    <span class="font-serif font-bold text-2xl text-white tracking-tight">EdStream</span>
                 </a>
                 
-                <div class="hidden xl:flex items-center space-x-8">
-                    <a href="features.html" class="page-link text-slate-600 hover:text-brand-600 font-medium text-sm transition-colors duration-200">Features</a>
-                    
-                    <div class="relative group h-20 flex items-center cursor-pointer">
-                        <button class="text-brand-600 font-medium text-sm transition-colors duration-200 flex items-center gap-1 pointer-events-none">
-                            About Us
-                            <svg class="w-3 h-3 transition-transform duration-300 group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                        </button>
-                        <div class="absolute top-16 left-0 w-56 bg-white rounded-xl shadow-2xl border border-slate-100 p-2 transform origin-top-left transition-all duration-200 ease-out opacity-0 invisible translate-y-1 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0">
-                            <a href="story.html" class="page-link block px-4 py-2.5 text-sm bg-brand-50 text-brand-600 rounded-lg font-medium">Our Story</a>
-                            <a href="careers.html" class="page-link block px-4 py-2.5 text-sm text-slate-600 hover:bg-slate-50 hover:text-brand-600 rounded-lg transition-colors font-medium">Careers</a>
-                            <div class="h-px bg-slate-100 my-1 mx-2"></div>
-                            <a href="trust.html" class="page-link block px-4 py-2.5 text-sm text-slate-600 hover:bg-slate-50 hover:text-brand-600 rounded-lg transition-colors font-medium flex items-center gap-2">
-                                Trust comes first
-                                <svg class="w-3 h-3 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                <div class="hidden md:flex items-center ml-auto">
+                    <nav class="flex items-center space-x-8 mr-8">
+                        <a href="story.html" class="text-sm font-medium text-brand-400 transition">Our Story</a>
+                        
+                        <div class="relative group">
+                            <button class="flex items-center gap-1 text-sm font-medium text-gray-300 hover:text-brand-400 transition py-2">
+                                Support <i class="fa-solid fa-chevron-down text-[10px] ml-1 opacity-70"></i>
+                            </button>
+                            <div class="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-48 bg-white rounded-xl shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 overflow-hidden border border-gray-100">
+                                <a href="index.html#faq" class="block px-5 py-3 text-sm font-medium text-gray-700 hover:bg-gray-50 hover:text-brand-500 transition-colors">FAQ</a>
+                                <a href="Resources.html" class="block px-5 py-3 text-sm font-medium text-gray-700 hover:bg-gray-50 hover:text-brand-500 transition-colors">Help Center</a>
+                            </div>
+                        </div>
+
+                        <a href="contact.html" class="text-sm font-medium text-gray-300 hover:text-brand-400 transition">Contact Us</a>
+                    </nav>
+
+                    <div class="flex items-center border-l border-white/10 pl-8 space-x-6">
+                        <div class="flex items-center space-x-4">
+                            <a href="https://apps.apple.com/us/app/edstream/id6736952355" target="_blank" class="text-gray-400 hover:text-white transition-colors" title="Download on App Store">
+                                <i class="fa-brands fa-apple text-xl"></i>
                             </a>
-                            <a href="news.html" class="page-link block px-4 py-2.5 text-sm text-slate-600 hover:bg-slate-50 hover:text-brand-600 rounded-lg transition-colors font-medium">News</a>
+                            <a href="https://play.google.com/store/apps/details?id=com.edstreamchat.app&pcampaignid=web_share" target="_blank" class="text-gray-400 hover:text-white transition-colors" title="Get it on Google Play">
+                                <i class="fa-brands fa-google-play text-lg"></i>
+                            </a>
                         </div>
+                        <a href="https://app.edstream.io/" target="_blank" class="px-6 py-2.5 rounded-full bg-edstream-accent text-white text-sm font-medium hover:bg-opacity-90 shadow-glow transition-all hover:-translate-y-0.5">
+                            Sign In
+                        </a>
                     </div>
-
-                    <div class="relative group h-20 flex items-center cursor-pointer">
-                        <button class="text-slate-600 group-hover:text-brand-600 font-medium text-sm transition-colors duration-200 flex items-center gap-1 pointer-events-none">
-                            Resources
-                            <svg class="w-3 h-3 opacity-50 transition-transform duration-300 group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                        </button>
-                        <div class="absolute top-16 left-0 w-48 bg-white rounded-xl shadow-2xl border border-slate-100 p-2 transform origin-top-left transition-all duration-200 ease-out opacity-0 invisible translate-y-1 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0">
-                            <div class="h-px bg-slate-100 my-1 mx-2"></div>
-                            <a href="blog.html" class="page-link block px-4 py-2.5 text-sm text-slate-600 hover:bg-slate-50 hover:text-brand-600 rounded-lg transition-colors font-medium">Blog</a>
-                            <a href="successstories.html" class="page-link block px-4 py-2.5 text-sm text-slate-600 hover:bg-slate-50 hover:text-brand-600 rounded-lg transition-colors font-medium">Success Stories</a>
-                        </div>
-                    </div>
-
-                    <a href="contact.html" class="page-link text-slate-600 hover:text-brand-600 font-medium text-sm transition-colors duration-200">Contact Us</a>
-                    <a href="https://universityofflorida-6bad23dc.mintlify.app" class="page-link text-slate-600 hover:text-brand-600 font-medium text-sm transition-colors duration-200">Help Center</a>
                 </div>
 
-                <div class="flex items-center space-x-4">
-                    <a href="https://apps.apple.com/us/app/edstream/id6736952355" target="_blank" class="text-slate-400 hover:text-black transition-colors duration-200 p-1">
-                        <svg class="w-6 h-6" viewBox="0 0 384 512" fill="currentColor"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 46.9 104.1 81.6 102.7 29.4-1.2 40.7-22.7 76.1-22.7 34.6 0 46.5 22.7 77.2 23.3 32.7.7 58.1-61.9 83.1-98.3 9.4-13.6 23.2-39.2 23.2-39.2s-60.8-21.6-60.9-51.8zm-91-177.7c17.6-21.2 29.8-51.2 26.3-80.6-25.1 1.3-55.9 16.7-73.4 37-16.7 19.3-30.7 51.6-27.4 79.9 28.3 2.5 54.3-15.3 74.5-36.3z"/></svg>
-                    </a>
-                    <a href="https://play.google.com/store/apps/details?id=com.edstreamchat.app&pcampaignid=web_share" target="_blank" class="text-slate-400 hover:text-[#3DDC84] transition-colors duration-200 p-1">
-                        <svg class="w-6 h-6" viewBox="0 0 576 512" fill="currentColor"><path d="M420.55,301.93a24,24,0,1,1,24-24,24,24,0,0,1-24,24Zm-265.1,0a24,24,0,1,1,24-24,24,24,0,0,1-24,24Zm273.7-144.48,47.94-83a10,10,0,1,0-17.27-10l-48.54,84.07a301.25,301.25,0,0,0-246.56,0L116.18,64.45a10,10,0,1,0-17.27,10l47.94,83C64.53,202.22,8.24,285.55,0,384H576C567.76,285.56,511.47,202.22,429.15,157.45Z" /></svg>
-                    </a>
-                    <a href="https://app.edstream.io" class="page-link bg-brand-600 hover:bg-brand-700 text-white px-6 py-2.5 rounded-full font-semibold text-sm transition-all duration-200 shadow-lg shadow-brand-500/30 hover:-translate-y-0.5">
-                        Login
-                    </a>
-                    <div class="xl:hidden ml-2">
-                        <button id="mobile-menu-btn" class="p-2 text-slate-600 rounded-md hover:bg-slate-100 transition">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
-                        </button>
-                    </div>
+                <div class="md:hidden flex items-center ml-auto">
+                    <button id="mobile-menu-btn" class="text-gray-400 hover:text-white focus:outline-none p-2">
+                        <i class="fa-solid fa-bars text-2xl"></i>
+                    </button>
                 </div>
             </div>
         </div>
-        
-        <div id="mobile-menu" class="hidden xl:hidden bg-white border-t border-slate-100 absolute w-full left-0 top-20 shadow-xl overflow-hidden transition-all duration-300">
-            <div class="px-4 py-6 space-y-4 flex flex-col">
-                <a href="features.html" class="page-link text-lg font-medium text-slate-800 py-2 border-b border-slate-50">Features</a>
-                <a href="story.html" class="page-link text-lg font-medium text-brand-600 py-2 border-b border-slate-50">Our Story</a>
-                <a href="careers.html" class="page-link text-lg font-medium text-slate-800 py-2">Careers</a>
-            </div>
-        </div>
-    </nav>
 
-    <main class="pt-20 flex-grow">
-        <section class="py-20 bg-brand-50 border-y border-brand-100">
-            <div class="max-w-4xl mx-auto px-4 text-center">
-                <h2 class="text-2xl md:text-3xl font-bold text-slate-900 mb-6">Our Mission</h2>
-                <p class="text-lg md:text-xl text-slate-700 leading-relaxed font-medium">
-                    "To streamline educational communication and foster stronger academic communities through innovative technology solutions that integrate seamlessly with existing learning management systems."
-                </p>
+        <div id="mobile-menu" class="hidden md:hidden bg-edstream-card border-b border-white/10 px-6 py-4 space-y-4 shadow-xl absolute w-full z-50">
+            <a href="story.html" class="block text-base font-medium text-gray-300 hover:text-white">Our Story</a>
+            <a href="guides.html" class="block text-base font-medium text-gray-300 hover:text-white">Support</a>
+            <a href="contact.html" class="block text-base font-medium text-gray-300 hover:text-white">Contact Us</a>
+            <hr class="border-white/10">
+            <div class="flex items-center space-x-5 pb-2">
+                <a href="https://apps.apple.com/us/app/edstream/id6736952355" target="_blank" class="text-gray-400 hover:text-white transition"><i class="fa-brands fa-apple text-2xl"></i></a>
+                <a href="https://play.google.com/store/apps/details?id=com.edstreamchat.app&pcampaignid=web_share" target="_blank" class="text-gray-400 hover:text-white transition"><i class="fa-brands fa-google-play text-xl"></i></a>
+            </div>
+            <a href="https://app.edstream.io/" target="_blank" class="block w-full text-center px-5 py-3 rounded-xl bg-edstream-accent text-white font-medium shadow-glow">Sign In</a>
+        </div>
+    </header>
+
+    <main>
+        <section class="relative pt-32 pb-32 overflow-hidden bg-[radial-gradient(circle_at_top,_var(--tw-gradient-stops))] from-edstream-accent/20 via-edstream-bg to-edstream-bg">
+            <img src="bg4.png" alt="Hero background texture" class="absolute inset-0 w-full h-full object-cover opacity-40 pointer-events-none z-0 mix-blend-lighten" onerror="this.style.display='none'"/>
+            <div class="max-w-4xl mx-auto px-6 lg:px-8 relative z-10 text-center">
+                <div class="reveal-up opacity-0 translate-y-8 scale-[0.97] blur-[2px] transition-all duration-[1200ms] ease-apple">
+                    <span class="inline-block px-4 py-1.5 rounded-full bg-edstream-accent/10 border border-edstream-accent/30 text-edstream-accent text-xs font-bold tracking-widest uppercase mb-8">Our Mission</span>
+                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-serif text-white leading-tight mb-8">
+                        "To streamline <span class="italic text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-edstream-accent">educational communication</span> and <span class="italic text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-edstream-accent">foster stronger academic communities</span>"
+                    </h1>
+                </div>
             </div>
         </section>
 
-        <section class="py-24 bg-white">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="flex flex-col lg:flex-row gap-16 lg:gap-24 items-start">
+        <section class="py-24 bg-edstream-sidebar border-y border-white/5 relative">
+            <div class="absolute top-0 left-0 w-[500px] h-[500px] bg-brand-500/5 rounded-full blur-[100px] -z-10 mix-blend-screen pointer-events-none"></div>
+            <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
+                <div class="grid lg:grid-cols-2 gap-16 lg:gap-24 items-start">
                     
-                    <div class="lg:w-1/2">
+                    <div class="lg:w-full reveal-left opacity-0 -translate-x-16 scale-[0.97] blur-[2px] transition-all duration-[1200ms] ease-apple">
                         <div class="sticky top-32">
-                            <h3 class="text-3xl font-bold text-slate-900 mb-6">The Origin Story</h3>
-                            <div class="space-y-6 text-slate-600 leading-relaxed text-lg">
+                            <h3 class="text-4xl md:text-5xl font-serif text-white mb-6">The Origin Story</h3>
+                            <div class="space-y-6 text-gray-400 leading-relaxed text-lg font-light">
                                 <p>
-                                    EdStream was born from a real need identified within the <strong>University of Florida's</strong> academic environment. As course enrollments grew and communication became increasingly complex, instructors found themselves overwhelmed with managing student communications across multiple platforms.
+                                    EdStream was born from a real need identified within the <strong class="text-white font-medium">University of Florida's</strong> academic environment. As course enrollments grew and communication became increasingly complex, instructors found themselves overwhelmed with managing student communications across multiple platforms.
                                 </p>
                                 <p>
                                     What started as a research project to improve course communication efficiency has evolved into a comprehensive platform that serves thousands of students and dozens of instructors across multiple institutions.
@@ -158,39 +149,39 @@
                         </div>
                     </div>
                     
-                    <div class="lg:w-1/2 w-full">
-                        <div class="relative border-l-2 border-brand-100 ml-3 md:ml-6 space-y-12 py-2">
+                    <div class="lg:w-full w-full">
+                        <div class="relative border-l border-white/10 ml-3 md:ml-6 space-y-16 py-4">
                             
-                            <div class="relative pl-8 md:pl-12 group">
-                                <span class="absolute -left-[9px] top-2 w-4 h-4 rounded-full bg-brand-200 border-4 border-white ring-2 ring-brand-100 group-hover:bg-brand-600 group-hover:ring-brand-200 transition-all duration-300"></span>
+                            <div class="relative pl-8 md:pl-12 group reveal-right opacity-0 translate-x-16 scale-[0.97] blur-[2px] transition-all duration-[1200ms] ease-apple">
+                                <span class="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-edstream-bg border border-white/20 group-hover:bg-edstream-accent group-hover:border-edstream-accent transition-all duration-300 shadow-[0_0_15px_rgba(99,102,241,0)] group-hover:shadow-[0_0_15px_rgba(99,102,241,0.6)]"></span>
                                 
-                                <span class="inline-block px-2 py-1 bg-brand-50 text-brand-700 text-xs font-bold rounded mb-2">2023</span>
-                                <h4 class="text-xl font-bold text-slate-900 mb-2">Project Launch</h4>
-                                <p class="text-slate-600">Initial research and development commenced at the University of Florida, identifying key gaps in LMS communication tools.</p>
+                                <span class="inline-block px-3 py-1 bg-white/5 border border-white/10 text-gray-300 text-xs font-bold tracking-widest uppercase rounded-full mb-4">2023</span>
+                                <h4 class="text-2xl font-bold text-white mb-3 font-serif">Project Launch</h4>
+                                <p class="text-gray-400 leading-relaxed font-light">Initial research and development commenced at the University of Florida, identifying key gaps in LMS communication tools.</p>
                             </div>
 
-                            <div class="relative pl-8 md:pl-12 group">
-                                <span class="absolute -left-[9px] top-2 w-4 h-4 rounded-full bg-brand-200 border-4 border-white ring-2 ring-brand-100 group-hover:bg-brand-600 group-hover:ring-brand-200 transition-all duration-300"></span>
+                            <div class="relative pl-8 md:pl-12 group reveal-right opacity-0 translate-x-16 scale-[0.97] blur-[2px] transition-all duration-[1200ms] ease-apple delay-[100ms]">
+                                <span class="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-edstream-bg border border-white/20 group-hover:bg-edstream-accent group-hover:border-edstream-accent transition-all duration-300 shadow-[0_0_15px_rgba(99,102,241,0)] group-hover:shadow-[0_0_15px_rgba(99,102,241,0.6)]"></span>
                                 
-                                <span class="inline-block px-2 py-1 bg-brand-50 text-brand-700 text-xs font-bold rounded mb-2">Early 2024</span>
-                                <h4 class="text-xl font-bold text-slate-900 mb-2">Pilot Program</h4>
-                                <p class="text-slate-600">Launched a successful pilot with 5,000+ students across multiple large-enrollment courses, achieving a 95% adoption rate.</p>
+                                <span class="inline-block px-3 py-1 bg-white/5 border border-white/10 text-gray-300 text-xs font-bold tracking-widest uppercase rounded-full mb-4">Early 2024</span>
+                                <h4 class="text-2xl font-bold text-white mb-3 font-serif">Pilot Program</h4>
+                                <p class="text-gray-400 leading-relaxed font-light">Launched a successful pilot with 5,000+ students across multiple large-enrollment courses, achieving a 95% adoption rate.</p>
                             </div>
 
-                            <div class="relative pl-8 md:pl-12 group">
-                                <span class="absolute -left-[9px] top-2 w-4 h-4 rounded-full bg-brand-600 border-4 border-white ring-2 ring-brand-200 shadow-lg shadow-brand-500/30"></span>
+                            <div class="relative pl-8 md:pl-12 group reveal-right opacity-0 translate-x-16 scale-[0.97] blur-[2px] transition-all duration-[1200ms] ease-apple delay-[200ms]">
+                                <span class="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-edstream-accent border-2 border-edstream-sidebar shadow-glow"></span>
                                 
-                                <span class="inline-block px-2 py-1 bg-brand-600 text-white text-xs font-bold rounded mb-2 shadow-sm">Late 2024</span>
-                                <h4 class="text-xl font-bold text-slate-900 mb-2">Platform Launch</h4>
-                                <p class="text-slate-600">Full platform release featuring native Canvas LTI integration, real-time messaging, and analytics dashboards.</p>
+                                <span class="inline-block px-3 py-1 bg-edstream-accent text-white text-xs font-bold tracking-widest uppercase rounded-full mb-4 shadow-glow">Late 2024</span>
+                                <h4 class="text-2xl font-bold text-white mb-3 font-serif">Platform Launch</h4>
+                                <p class="text-gray-400 leading-relaxed font-light">Full platform release featuring native Canvas LTI integration, real-time messaging, and analytics dashboards.</p>
                             </div>
 
-                            <div class="relative pl-8 md:pl-12 group">
-                                <span class="absolute -left-[9px] top-2 w-4 h-4 rounded-full bg-brand-100 border-4 border-white ring-2 ring-brand-50 group-hover:bg-brand-400 transition-all duration-300"></span>
+                            <div class="relative pl-8 md:pl-12 group reveal-right opacity-0 translate-x-16 scale-[0.97] blur-[2px] transition-all duration-[1200ms] ease-apple delay-[300ms]">
+                                <span class="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-edstream-bg border border-white/20 group-hover:bg-brand-400 group-hover:border-brand-400 transition-all duration-300 shadow-[0_0_15px_rgba(56,189,248,0)] group-hover:shadow-[0_0_15px_rgba(56,189,248,0.6)]"></span>
                                 
-                                <span class="inline-block px-2 py-1 bg-slate-100 text-slate-600 text-xs font-bold rounded mb-2">2025 & Beyond</span>
-                                <h4 class="text-xl font-bold text-slate-900 mb-2">Expansion</h4>
-                                <p class="text-slate-600">Growing our network of partner institutions nationwide and developing AI-assisted triage features.</p>
+                                <span class="inline-block px-3 py-1 bg-white/5 border border-white/10 text-gray-300 text-xs font-bold tracking-widest uppercase rounded-full mb-4">2025 & Beyond</span>
+                                <h4 class="text-2xl font-bold text-white mb-3 font-serif">Expansion</h4>
+                                <p class="text-gray-400 leading-relaxed font-light">Growing our network of partner institutions nationwide and developing AI-assisted triage features.</p>
                             </div>
 
                         </div>
@@ -200,154 +191,228 @@
             </div>
         </section>
 
-        <section class="py-20 bg-slate-50 border-y border-slate-200">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="text-center mb-16">
-                    <h2 class="text-3xl font-bold text-slate-900">Our Values</h2>
-                    <p class="mt-4 text-slate-600">The principles that guide everything we do.</p>
+        <section class="py-24 bg-[#0A0C10] relative overflow-hidden">
+            <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
+                <div class="text-center max-w-3xl mx-auto mb-16 reveal-up opacity-0 translate-y-8 scale-[0.97] blur-[2px] transition-all duration-[1200ms] ease-apple">
+                    <h2 class="text-3xl md:text-5xl font-serif text-white mb-4">Our Values</h2>
+                    <p class="text-lg text-gray-400 font-light">The principles that guide everything we do.</p>
                 </div>
 
-                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-shadow">
-                        <div class="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center text-blue-600 mb-4">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 auto-rows-fr">
+                    
+                    <div class="p-8 rounded-3xl bg-white/5 backdrop-blur-md border border-white/10 hover:bg-white/10 transition-all shadow-soft group flex flex-col relative overflow-hidden reveal-up opacity-0 translate-y-8 scale-[0.97] blur-[2px] transition-all duration-[1200ms] ease-apple">
+                        <img src="bg2.png" alt="" class="absolute inset-0 w-full h-full object-cover opacity-20 pointer-events-none z-0 mix-blend-lighten" onerror="this.style.display='none'"/>
+                        <div class="relative z-10">
+                            <div class="w-14 h-14 rounded-2xl bg-blue-500/20 border border-blue-500/20 flex items-center justify-center text-blue-400 mb-6 group-hover:scale-110 transition-transform">
+                                <i class="fa-solid fa-user-graduate text-2xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-white mb-3">Student-Centered</h3>
+                            <p class="text-gray-400 text-sm leading-relaxed font-light">Every feature is designed with student success and engagement as the primary focus.</p>
                         </div>
-                        <h3 class="font-bold text-slate-900 mb-2">Student-Centered</h3>
-                        <p class="text-sm text-slate-600 leading-relaxed">Every feature is designed with student success and engagement as the primary focus.</p>
                     </div>
 
-                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-shadow">
-                        <div class="w-12 h-12 bg-purple-50 rounded-xl flex items-center justify-center text-purple-600 mb-4">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.384-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
+                    <div class="p-8 rounded-3xl bg-white/5 backdrop-blur-md border border-white/10 hover:bg-white/10 transition-all shadow-soft group flex flex-col relative overflow-hidden reveal-up opacity-0 translate-y-8 scale-[0.97] blur-[2px] transition-all duration-[1200ms] ease-apple delay-[100ms]">
+                        <div class="relative z-10">
+                            <div class="w-14 h-14 rounded-2xl bg-purple-500/20 border border-purple-500/20 flex items-center justify-center text-purple-400 mb-6 group-hover:scale-110 transition-transform">
+                                <i class="fa-solid fa-award text-2xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-white mb-3">Educational Excellence</h3>
+                            <p class="text-gray-400 text-sm leading-relaxed font-light">We believe technology should enhance learning, not complicate it.</p>
                         </div>
-                        <h3 class="font-bold text-slate-900 mb-2">Educational Excellence</h3>
-                        <p class="text-sm text-slate-600 leading-relaxed">We believe technology should enhance learning, not complicate it.</p>
                     </div>
 
-                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-shadow">
-                        <div class="w-12 h-12 bg-amber-50 rounded-xl flex items-center justify-center text-amber-600 mb-4">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                    <div class="p-8 rounded-3xl bg-white/5 backdrop-blur-md border border-white/10 hover:bg-white/10 transition-all shadow-soft group flex flex-col relative overflow-hidden reveal-up opacity-0 translate-y-8 scale-[0.97] blur-[2px] transition-all duration-[1200ms] ease-apple delay-[200ms]">
+                        <img src="bg3.png" alt="" class="absolute inset-0 w-full h-full object-cover opacity-20 pointer-events-none z-0 mix-blend-lighten" onerror="this.style.display='none'"/>
+                        <div class="relative z-10">
+                            <div class="w-14 h-14 rounded-2xl bg-amber-500/20 border border-amber-500/20 flex items-center justify-center text-amber-400 mb-6 group-hover:scale-110 transition-transform">
+                                <i class="fa-solid fa-lightbulb text-2xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-white mb-3">Innovation</h3>
+                            <p class="text-gray-400 text-sm leading-relaxed font-light">Pushing the boundaries of what's possible in educational technology.</p>
                         </div>
-                        <h3 class="font-bold text-slate-900 mb-2">Innovation</h3>
-                        <p class="text-sm text-slate-600 leading-relaxed">Pushing the boundaries of what's possible in educational technology.</p>
                     </div>
 
-                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-shadow">
-                        <div class="w-12 h-12 bg-green-50 rounded-xl flex items-center justify-center text-green-600 mb-4">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                    <div class="p-8 rounded-3xl bg-white/5 backdrop-blur-md border border-white/10 hover:bg-white/10 transition-all shadow-soft group flex flex-col relative overflow-hidden reveal-up opacity-0 translate-y-8 scale-[0.97] blur-[2px] transition-all duration-[1200ms] ease-apple delay-[300ms]">
+                        <img src="bg5.png" alt="" class="absolute inset-0 w-full h-full object-cover opacity-20 pointer-events-none z-0 mix-blend-lighten" onerror="this.style.display='none'"/>
+                        <div class="relative z-10">
+                            <div class="w-14 h-14 rounded-2xl bg-green-500/20 border border-green-500/20 flex items-center justify-center text-green-400 mb-6 group-hover:scale-110 transition-transform">
+                                <i class="fa-solid fa-people-group text-2xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-white mb-3">Community</h3>
+                            <p class="text-gray-400 text-sm leading-relaxed font-light">Fostering meaningful connections that extend beyond the classroom.</p>
                         </div>
-                        <h3 class="font-bold text-slate-900 mb-2">Community</h3>
-                        <p class="text-sm text-slate-600 leading-relaxed">Fostering meaningful connections that extend beyond the classroom.</p>
                     </div>
+
                 </div>
             </div>
         </section>
 
-        <section class="py-20 bg-white">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="text-center max-w-2xl mx-auto mb-12">
-                    <h2 class="text-3xl font-bold text-slate-900 mb-4">Together we can impact how EdTech works</h2>
+        <section class="py-24 bg-edstream-card/30 border-t border-white/5 relative overflow-hidden">
+            <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
+                <div class="text-center max-w-3xl mx-auto mb-16 reveal-up opacity-0 translate-y-8 scale-[0.97] blur-[2px] transition-all duration-[1200ms] ease-apple">
+                    <h2 class="text-3xl md:text-5xl font-serif text-white mb-4">Together we can impact how EdTech works</h2>
                 </div>
 
                 <div class="grid md:grid-cols-2 gap-8">
-                    <div class="group relative overflow-hidden bg-brand-600 rounded-3xl p-10 text-white shadow-xl transition-transform hover:-translate-y-1">
-                        <div class="absolute top-0 right-0 -mr-16 -mt-16 w-64 h-64 bg-brand-500 rounded-full opacity-50 blur-3xl group-hover:scale-110 transition-transform duration-700"></div>
+                    
+                    <div class="group relative overflow-hidden bg-edstream-sidebar rounded-3xl p-10 border border-edstream-accent/20 shadow-soft transition-transform duration-500 hover:-translate-y-2 reveal-left opacity-0 -translate-x-16 scale-[0.97] blur-[2px] transition-all duration-[1200ms] ease-apple">
+                        <div class="absolute top-0 right-0 -mr-16 -mt-16 w-64 h-64 bg-edstream-accent/20 rounded-full blur-3xl group-hover:bg-edstream-accent/30 transition-colors duration-700 pointer-events-none"></div>
                         
                         <div class="relative z-10 h-full flex flex-col justify-between">
                             <div>
-                                <h3 class="text-2xl font-bold mb-4">Work with us</h3>
-                                <p class="text-brand-100 text-lg leading-relaxed mb-8">
+                                <h3 class="text-3xl font-serif font-bold text-white mb-4">Work with us</h3>
+                                <p class="text-gray-400 text-lg leading-relaxed font-light mb-10">
                                     Want to help tackle the tough issues that have troubled the education system for decades? Join us and have some fun while making a positive impact!
                                 </p>
                             </div>
                             <div>
-                                <a href="careers.html" class="inline-flex items-center gap-2 bg-white text-brand-600 px-6 py-3 rounded-xl font-bold hover:bg-brand-50 transition-colors">
+                                <a href="careers.html" class="inline-flex items-center gap-2 bg-edstream-accent text-white px-8 py-4 rounded-xl font-semibold hover:bg-opacity-90 shadow-glow transition-all">
                                     Apply Now
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                                    <i class="fa-solid fa-arrow-right text-sm"></i>
                                 </a>
                             </div>
                         </div>
                     </div>
 
-                    <div class="group relative overflow-hidden bg-slate-50 border border-slate-200 rounded-3xl p-10 text-slate-800 shadow-lg transition-transform hover:-translate-y-1">
-                        <div class="absolute bottom-0 left-0 -ml-16 -mb-16 w-64 h-64 bg-slate-200 rounded-full opacity-50 blur-3xl group-hover:scale-110 transition-transform duration-700"></div>
+                    <div class="group relative overflow-hidden bg-edstream-card rounded-3xl p-10 border border-white/5 shadow-soft transition-transform duration-500 hover:-translate-y-2 reveal-right opacity-0 translate-x-16 scale-[0.97] blur-[2px] transition-all duration-[1200ms] ease-apple">
+                        <div class="absolute bottom-0 left-0 -ml-16 -mb-16 w-64 h-64 bg-brand-500/10 rounded-full blur-3xl group-hover:bg-brand-500/20 transition-colors duration-700 pointer-events-none"></div>
                         
                         <div class="relative z-10 h-full flex flex-col justify-between">
                             <div>
-                                <h3 class="text-2xl font-bold mb-4 text-brand-700">Partner with us</h3>
-                                <p class="text-slate-600 text-lg leading-relaxed mb-8">
+                                <h3 class="text-3xl font-serif font-bold text-brand-400 mb-4">Partner with us</h3>
+                                <p class="text-gray-400 text-lg leading-relaxed font-light mb-10">
                                     Join leading application developers and curriculum publishers that partner with EdStream to simplify their rollouts both in the US and internationally.
                                 </p>
                             </div>
                             <div>
-                                <a href="contact.html" class="inline-flex items-center gap-2 bg-brand-700 text-white px-6 py-3 rounded-xl font-bold hover:bg-brand-800 transition-colors shadow-lg shadow-brand-900/10">
+                                <a href="contact.html" class="inline-flex items-center gap-2 bg-white/10 border border-white/20 text-white px-8 py-4 rounded-xl font-semibold hover:bg-white/20 transition-all">
                                     Learn More
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                                    <i class="fa-solid fa-arrow-right text-sm"></i>
                                 </a>
                             </div>
                         </div>
                     </div>
+
                 </div>
             </div>
         </section>
 
     </main>
 
-    <footer class="bg-brand-600 text-white py-16 border-t border-brand-500 mt-auto">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-12">
-                <div class="col-span-1 md:col-span-2">
-                    <div class="flex items-center gap-2 mb-6">
-                        <span class="text-white font-bold text-2xl tracking-tight">EdStream</span>
+    <footer class="bg-edstream-bg pt-24 pb-10 text-white border-t border-white/10">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            
+            <div class="bg-edstream-sidebar border border-white/10 rounded-3xl p-10 lg:p-16 text-center mb-20 relative overflow-hidden shadow-soft reveal-up opacity-0 translate-y-8 scale-[0.97] blur-[2px] transition-all duration-[1200ms] ease-apple">
+                <div class="absolute top-0 right-0 w-64 h-64 bg-brand-500/20 rounded-full blur-[80px] -z-10 translate-x-1/2 -translate-y-1/2 pointer-events-none"></div>
+                <div class="absolute bottom-0 left-0 w-64 h-64 bg-edstream-accent/20 rounded-full blur-[80px] -z-10 -translate-x-1/2 translate-y-1/2 pointer-events-none"></div>
+                
+                <h2 class="text-3xl md:text-5xl font-serif font-bold mb-6 text-white">Ready to transform your communication?</h2>
+                <p class="text-gray-400 mb-8 max-w-2xl mx-auto">Join thousands of educators and teams who have already upgraded their workspace.</p>
+                
+                <form class="flex flex-col sm:flex-row max-w-lg mx-auto gap-3">
+                    <input type="email" placeholder="Enter your work email" class="flex-1 px-5 py-4 rounded-xl bg-[#0A0C10] border border-white/10 text-white outline-none focus:border-edstream-accent placeholder-gray-600">
+                    <button type="submit" class="px-8 py-4 rounded-xl bg-edstream-accent text-white font-medium hover:bg-opacity-90 transition shadow-glow whitespace-nowrap">
+                        Get Started
+                    </button>
+                </form>
+            </div>
+
+            <div class="flex flex-col md:flex-row justify-between gap-12 mb-16 reveal-up opacity-0 translate-y-8 scale-[0.97] blur-[2px] transition-all duration-[1200ms] ease-apple">
+                <div class="max-w-md">
+                    <div class="flex items-center gap-2 mb-6 group cursor-pointer">
+                        <svg viewBox="0 0 100 100" class="h-8 w-auto group-hover:scale-105 transition-transform drop-shadow-lg" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M 22 15 L 14 5 M 12 25 L 4 15" stroke="#FF4500" stroke-width="4" stroke-linecap="round"/>
+                            <path d="M 82 85 L 92 95 M 90 75 L 100 85" stroke="#FF4500" stroke-width="4" stroke-linecap="round"/>
+                            <path d="M 25 80 C 28 72 25 65 20 60 C 10 50 10 25 35 15 C 65 5 95 20 90 50 C 85 80 45 85 25 80 Z" stroke="#0033A0" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+                            <circle cx="50" cy="40" r="7" stroke="#0033A0" stroke-width="4"/>
+                            <path d="M 36 60 C 36 50 44 47 50 47 C 56 47 64 50 64 60" stroke="#0033A0" stroke-width="4" stroke-linecap="round"/>
+                            <circle cx="30" cy="45" r="5" stroke="#0033A0" stroke-width="4"/>
+                            <path d="M 22 60 C 22 53 26 51 30 51 C 32 51 34 52 36 54" stroke="#0033A0" stroke-width="4" stroke-linecap="round"/>
+                            <circle cx="70" cy="45" r="5" stroke="#0033A0" stroke-width="4"/>
+                            <path d="M 64 54 C 66 52 68 51 70 51 C 74 51 78 53 78 60" stroke="#0033A0" stroke-width="4" stroke-linecap="round"/>
+                        </svg>
+                        <span class="font-serif font-bold text-2xl text-white tracking-tight">EdStream</span>
                     </div>
-                    <p class="text-brand-100 text-sm leading-relaxed max-w-xs mb-6">
-                        Cultivating Campus Communities. The communication layer for the modern university experience.
-                    </p>
-                    <div class="text-xs text-brand-200/80">
-                        &copy; 2025 EdStream. <br>Born from the University of Florida Research Foundation.
+                    <p class="text-gray-500 text-sm leading-relaxed mb-6">Building the communication layer for modern education and forward-thinking enterprises.</p>
+                    <div class="flex gap-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-gray-400 hover:bg-edstream-accent hover:text-white transition"><i class="fa-brands fa-twitter"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-gray-400 hover:bg-edstream-accent hover:text-white transition"><i class="fa-brands fa-linkedin-in"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-gray-400 hover:bg-edstream-accent hover:text-white transition"><i class="fa-brands fa-github"></i></a>
                     </div>
                 </div>
-                <div>
-                    <h3 class="text-sm font-bold uppercase tracking-wider text-brand-200 mb-4">Quick Links</h3>
-                    <ul class="space-y-3">
-                        <li><a href="features.html" class="page-link text-white hover:text-white/80 transition-colors">Features</a></li>
-                        <li><a href="story.html" class="page-link text-white hover:text-white/80 transition-colors">About</a></li>
-                        <li><a href="contact.html" class="page-link text-white hover:text-white/80 transition-colors">Contact</a></li>
+                
+                <div class="flex-shrink-0">
+                    <h4 class="font-bold mb-6 text-white text-sm tracking-widest uppercase">Links</h4>
+                    <ul class="space-y-4 text-sm text-gray-500">
+                        <li><a href="contact.html" class="hover:text-brand-400 transition">Contact Us</a></li>
                     </ul>
                 </div>
-                <div>
-                    <h3 class="text-sm font-bold uppercase tracking-wider text-brand-200 mb-4">Legal & Support</h3>
-                    <ul class="space-y-3">
-                        <li><a href="privacy.html" class="page-link text-white hover:text-white/80 transition-colors">Privacy Policy</a></li>
-                        <li><a href="terms.html" class="page-link text-white hover:text-white/80 transition-colors">Terms of Service</a></li>
-                        <li><a href="https://universityofflorida-6bad23dc.mintlify.app" class="page-link text-white hover:text-white/80 transition-colors">Documentation</a></li>
-                    </ul>
+            </div>
+
+            <div class="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4 reveal-up opacity-0 translate-y-8 scale-[0.97] blur-[2px] transition-all duration-[1200ms] ease-apple">
+                <p class="text-gray-600 text-sm">© 2026 EdStream Inc. All rights reserved.</p>
+                <div class="flex gap-6 text-sm text-gray-500">
+                    <a href="privacy.html" class="hover:text-white transition">Privacy Policy</a>
+                    <a href="terms.html" class="hover:text-white transition">Terms of Service</a>
                 </div>
             </div>
         </div>
     </footer>
 
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            setTimeout(() => { document.body.classList.add('loaded'); }, 30); 
-            
-            // Mobile Menu Logic
-            const btn = document.getElementById('mobile-menu-btn');
-            const menu = document.getElementById('mobile-menu');
-            if(btn && menu) {
-                btn.addEventListener('click', () => { menu.classList.toggle('hidden'); });
-            }
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
 
-            // Page Link Logic
-            const links = document.querySelectorAll('.page-link');
-            links.forEach(link => {
-                link.addEventListener('click', (e) => {
-                    const href = link.getAttribute('href');
-                    if (!href || href.startsWith('#') || href.startsWith('http')) return; 
-                    e.preventDefault(); 
-                    document.body.classList.remove('loaded');
-                    setTimeout(() => { window.location.href = href; }, 200);
+        // Intersection Observer for Smooth Apple-Tier Scroll Animations (From index.html)
+        document.addEventListener('DOMContentLoaded', () => {
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.15
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    const el = entry.target;
+                    
+                    if (entry.isIntersecting) {
+                        // Assemble: Strip scatter states and apply resting state
+                        el.classList.remove('opacity-0', 'translate-y-8', 'translate-y-16', '-translate-x-16', 'translate-x-16', 'scale-[0.97]', 'blur-[2px]');
+                        el.classList.add('opacity-100', 'translate-x-0', 'translate-y-0', 'scale-100', 'blur-0');
+                    } else {
+                        // Scatter: Apply directional scatter states based on reveal class
+                        const isRevealLeft = el.classList.contains('reveal-left');
+                        const isRevealRight = el.classList.contains('reveal-right');
+                        const isRevealBottom = el.classList.contains('reveal-bottom');
+                        
+                        el.classList.remove('opacity-100', 'translate-x-0', 'translate-y-0', 'scale-100', 'blur-0');
+                        el.classList.add('opacity-0', 'scale-[0.97]', 'blur-[2px]');
+                        
+                        if (isRevealLeft) {
+                            el.classList.add('-translate-x-16');
+                            el.classList.remove('translate-x-16', 'translate-y-8');
+                        } else if (isRevealRight) {
+                            el.classList.add('translate-x-16');
+                            el.classList.remove('-translate-x-16', 'translate-y-8');
+                        } else if (isRevealBottom) {
+                            el.classList.add('translate-y-16');
+                            el.classList.remove('-translate-x-16', 'translate-x-16', 'translate-y-8');
+                        } else {
+                            el.classList.add('translate-y-8');
+                            el.classList.remove('-translate-x-16', 'translate-x-16', 'translate-y-16');
+                        }
+                    }
                 });
+            }, observerOptions);
+
+            const revealElements = document.querySelectorAll('.reveal-up, .reveal-left, .reveal-right, .reveal-bottom');
+            revealElements.forEach(el => {
+                observer.observe(el);
             });
         });
     </script>
